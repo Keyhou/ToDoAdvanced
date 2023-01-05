@@ -16,6 +16,9 @@
 		EF078E2C296579E40072E248 /* ToDoAdvancedTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E2B296579E40072E248 /* ToDoAdvancedTests.swift */; };
 		EF078E36296579E40072E248 /* ToDoAdvancedUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E35296579E40072E248 /* ToDoAdvancedUITests.swift */; };
 		EF078E38296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E37296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift */; };
+		EF078E45296585790072E248 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E44296585790072E248 /* TaskDetailView.swift */; };
+		EF078E47296586970072E248 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E46296586970072E248 /* AddTaskView.swift */; };
+		EF7BC62829671FDF0011E2D3 /* SimpleToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BC62729671FDF0011E2D3 /* SimpleToDo.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -48,6 +51,9 @@
 		EF078E31296579E40072E248 /* ToDoAdvancedUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = ToDoAdvancedUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF078E35296579E40072E248 /* ToDoAdvancedUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAdvancedUITests.swift; sourceTree = "<group>"; };
 		EF078E37296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAdvancedUITestsLaunchTests.swift; sourceTree = "<group>"; };
+		EF078E44296585790072E248 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
+		EF078E46296586970072E248 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
+		EF7BC62729671FDF0011E2D3 /* SimpleToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDo.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -78,6 +84,7 @@
 		EF078E09296579E30072E248 = {
 			isa = PBXGroup;
 			children = (
+				EF7BC62729671FDF0011E2D3 /* SimpleToDo.swift */,
 				EF078E14296579E30072E248 /* ToDoAdvanced */,
 				EF078E2A296579E40072E248 /* ToDoAdvancedTests */,
 				EF078E34296579E40072E248 /* ToDoAdvancedUITests */,
@@ -100,6 +107,8 @@
 			children = (
 				EF078E15296579E30072E248 /* ToDoAdvancedApp.swift */,
 				EF078E17296579E30072E248 /* ContentView.swift */,
+				EF078E44296585790072E248 /* TaskDetailView.swift */,
+				EF078E46296586970072E248 /* AddTaskView.swift */,
 				EF078E19296579E40072E248 /* Assets.xcassets */,
 				EF078E1E296579E40072E248 /* Persistence.swift */,
 				EF078E20296579E40072E248 /* ToDoAdvanced.xcdatamodeld */,
@@ -266,7 +275,10 @@
 				EF078E1F296579E40072E248 /* Persistence.swift in Sources */,
 				EF078E22296579E40072E248 /* ToDoAdvanced.xcdatamodeld in Sources */,
 				EF078E18296579E30072E248 /* ContentView.swift in Sources */,
+				EF7BC62829671FDF0011E2D3 /* SimpleToDo.swift in Sources */,
+				EF078E47296586970072E248 /* AddTaskView.swift in Sources */,
 				EF078E16296579E30072E248 /* ToDoAdvancedApp.swift in Sources */,
+				EF078E45296585790072E248 /* TaskDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
