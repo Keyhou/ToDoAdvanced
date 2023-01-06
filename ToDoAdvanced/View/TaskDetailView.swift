@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import CoreData
 import UserNotifications
 
 struct TaskDetailView: View {
@@ -34,51 +35,48 @@ struct TaskDetailView: View {
     @State var details: String = ""
   
     var body: some View {
-//        VStack {
-//            Text("\(item.name ?? "Get food")")
-//
-//            Text(item.type ?? "ToDo")
-////            Text(item.isDone)
-//
-//            Text(item.assigned ?? "Christ")
-//        }
-//        .navigationBarTitle(item.name ?? "TaskName")
-//        .navigationBarTitleDisplayMode(.inline)
-        NavigationStack {
-            VStack {
             Form {
                 Section(header: Text("Name")) {
                     TextField("Title", text: $name)
                 }
+//                Section(header: Text("Type")) {
+//                    CustomSegmentedView($selectedIndex, selections: selections)
+//                    Text("\(selections[selectedIndex])")
+//                }
                 Section(header: Text("Type")) {
-                    //                    Picker("Types", selection: $type) {
-                    //                        ForEach(selections.indices, id: \.self) { index in
-                    //                            Text(selections[index])
-                    //                        }
-                    //                    }
-                    //                    .pickerStyle(.segmented)
-                    //                    .colorMultiply(.red)
-                    ////                    .colorMultiply(
-                    ////                        if types[typeIndex] == 0 {
-                    ////                            .red
-                    ////                        } else {
-                    ////                            .blue
-                    ////                        }
-                    ////                    )
-                    CustomSegmentedView($selectedIndex, selections: selections)
-                    Text("\(selections[selectedIndex])")
+                    Picker("Types", selection: $type) {
+                        ForEach(selections, id: \.self) {
+                            Text($0)
+                        }
+                    }
+                    .pickerStyle(.segmented)
+                    .colorMultiply(.red)
                 }
                 Section(header: Text("Status")) {
                     Toggle(isOn: $isDone) {
                         Text("Finished")
                     }
                 }
-                Section(header: Text("Date & Time")) {
+                Section(header: Text("Reminder")) {
                     Toggle(isOn: $isDated) {
                         Text("Date")
                     }
+                    if isDated == true {
+                        DatePicker("Choose the date", selection: $date, displayedComponents: .date)
+                            .onChange(of: date) {
+                                print($0)
+                            }
+                            .datePickerStyle(.graphical)
+                    }
                     Toggle(isOn: $isTimed) {
                         Text("Time")
+                    }
+                    if isTimed == true {
+                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
+                            .onChange(of: time) {
+                                print($0)
+                            }
+                            .datePickerStyle(.graphical)
                     }
                 }
                 Section(header: Text("Who's in charge?")) {
@@ -94,32 +92,9 @@ struct TaskDetailView: View {
                 }
                 
             }
-            //            .scrollContentBackground(.hidden)
-            //            .background(.indigo)
-                Button {
-                    dismiss()
-                    //                            .deleteItems(at: items[$0])
-//                    deleteItems(offsets: IndexSet(integer: 0))
-                    deleteItems(offsets: IndexSet([0]))
-                } label: {
-                    Text("Delete")
-                        .foregroundColor(Color.red)
-                }
-        }
             .toolbar {
-                ToolbarItem(placement: .navigationBarLeading) {
-                    Button {
-                        dismiss()
-//                            .deleteItems(at: items[$0])
-                    } label: {
-                        Text("Delete")
-                            .foregroundColor(Color.red)
-                    }
-                    
-                }
-                
                 ToolbarItem {
-                    ShareLink(item: "\(name)", subject: Text("Here's your task")) {
+                    ShareLink(item: "Task: \(name)", /*subject: Text("\(assigned)")*/ message: Text("\(details)")) {
                         Image(systemName: "square.and.arrow.up")
                     }
                 }
@@ -127,19 +102,33 @@ struct TaskDetailView: View {
                     Button {
                         editItem()
                         dismiss()
+                        
+                        // AUTO NOTIFICATIONS
+                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                            if success {
+                                print("All set!")
+                            } else if let error = error {
+                                print(error.localizedDescription)
+                            }
+                        }
                         let content = UNMutableNotificationContent()
-                        content.title = "Feed the cat"
-                        content.subtitle = "It looks hungry"
+                        content.title = name
+                        content.subtitle = details
                         content.sound = UNNotificationSound.default
-
+                        
                         // show this notification five seconds from now
-                        let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-
+                        let comps = Calendar.current.dateComponents([.hour, .minute], from: time)
+                        
+                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+                        
+                        print(comps)
                         // choose a random identifier
                         let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-
+                        
                         // add our notification request
                         UNUserNotificationCenter.current().add(request)
+                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        
                     } label: {
                         Text("Edit")
                             .fontWeight(.bold)
@@ -148,7 +137,7 @@ struct TaskDetailView: View {
                 }
             }
             
-        }
+//        }
     }
     private func editItem() {
         withAnimation {
@@ -257,9 +246,9 @@ struct CustomSegmentedView: View {
 //        } else {
 //            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.blue.opacity(0.3))
 //        }
-        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.blue.opacity(0.3))
+        UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.blue.opacity(0.1))
         UISegmentedControl.appearance().backgroundColor =
-        UIColor(Color.orange.opacity(0.3))
+        UIColor(Color.white.opacity(0.3))
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.primary)], for: .selected)
         UISegmentedControl.appearance().setTitleTextAttributes([.foregroundColor: UIColor(Color.secondary)], for: .normal)
     }

@@ -18,7 +18,9 @@
 		EF078E38296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E37296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift */; };
 		EF078E45296585790072E248 /* TaskDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E44296585790072E248 /* TaskDetailView.swift */; };
 		EF078E47296586970072E248 /* AddTaskView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E46296586970072E248 /* AddTaskView.swift */; };
-		EF7BC62829671FDF0011E2D3 /* SimpleToDo.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BC62729671FDF0011E2D3 /* SimpleToDo.swift */; };
+		EF7BC62C29682B1D0011E2D3 /* Task.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BC62B29682B1D0011E2D3 /* Task.swift */; };
+		EF7BC62E29684FB40011E2D3 /* NotificationManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BC62D29684FB40011E2D3 /* NotificationManager.swift */; };
+		EF7BC6302968506F0011E2D3 /* NotificationHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF7BC62F2968506F0011E2D3 /* NotificationHelper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,7 +55,9 @@
 		EF078E37296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAdvancedUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		EF078E44296585790072E248 /* TaskDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskDetailView.swift; sourceTree = "<group>"; };
 		EF078E46296586970072E248 /* AddTaskView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddTaskView.swift; sourceTree = "<group>"; };
-		EF7BC62729671FDF0011E2D3 /* SimpleToDo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SimpleToDo.swift; sourceTree = "<group>"; };
+		EF7BC62B29682B1D0011E2D3 /* Task.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Task.swift; sourceTree = "<group>"; };
+		EF7BC62D29684FB40011E2D3 /* NotificationManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationManager.swift; sourceTree = "<group>"; };
+		EF7BC62F2968506F0011E2D3 /* NotificationHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationHelper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -84,7 +88,6 @@
 		EF078E09296579E30072E248 = {
 			isa = PBXGroup;
 			children = (
-				EF7BC62729671FDF0011E2D3 /* SimpleToDo.swift */,
 				EF078E14296579E30072E248 /* ToDoAdvanced */,
 				EF078E2A296579E40072E248 /* ToDoAdvancedTests */,
 				EF078E34296579E40072E248 /* ToDoAdvancedUITests */,
@@ -106,9 +109,9 @@
 			isa = PBXGroup;
 			children = (
 				EF078E15296579E30072E248 /* ToDoAdvancedApp.swift */,
-				EF078E17296579E30072E248 /* ContentView.swift */,
-				EF078E44296585790072E248 /* TaskDetailView.swift */,
-				EF078E46296586970072E248 /* AddTaskView.swift */,
+				EF7BC62A29682AF80011E2D3 /* Model */,
+				EF7BC62929682ADA0011E2D3 /* View */,
+				EF7BC631296871180011E2D3 /* ViewModel */,
 				EF078E19296579E40072E248 /* Assets.xcassets */,
 				EF078E1E296579E40072E248 /* Persistence.swift */,
 				EF078E20296579E40072E248 /* ToDoAdvanced.xcdatamodeld */,
@@ -140,6 +143,33 @@
 				EF078E37296579E40072E248 /* ToDoAdvancedUITestsLaunchTests.swift */,
 			);
 			path = ToDoAdvancedUITests;
+			sourceTree = "<group>";
+		};
+		EF7BC62929682ADA0011E2D3 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				EF078E17296579E30072E248 /* ContentView.swift */,
+				EF078E44296585790072E248 /* TaskDetailView.swift */,
+				EF078E46296586970072E248 /* AddTaskView.swift */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		EF7BC62A29682AF80011E2D3 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				EF7BC62B29682B1D0011E2D3 /* Task.swift */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		EF7BC631296871180011E2D3 /* ViewModel */ = {
+			isa = PBXGroup;
+			children = (
+				EF7BC62F2968506F0011E2D3 /* NotificationHelper.swift */,
+				EF7BC62D29684FB40011E2D3 /* NotificationManager.swift */,
+			);
+			path = ViewModel;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -272,12 +302,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				EF7BC62C29682B1D0011E2D3 /* Task.swift in Sources */,
 				EF078E1F296579E40072E248 /* Persistence.swift in Sources */,
 				EF078E22296579E40072E248 /* ToDoAdvanced.xcdatamodeld in Sources */,
+				EF7BC6302968506F0011E2D3 /* NotificationHelper.swift in Sources */,
 				EF078E18296579E30072E248 /* ContentView.swift in Sources */,
-				EF7BC62829671FDF0011E2D3 /* SimpleToDo.swift in Sources */,
 				EF078E47296586970072E248 /* AddTaskView.swift in Sources */,
 				EF078E16296579E30072E248 /* ToDoAdvancedApp.swift in Sources */,
+				EF7BC62E29684FB40011E2D3 /* NotificationManager.swift in Sources */,
 				EF078E45296585790072E248 /* TaskDetailView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
