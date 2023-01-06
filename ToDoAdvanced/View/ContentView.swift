@@ -9,31 +9,30 @@ import SwiftUI
 import CoreData
 import UserNotifications
 
-
-enum Status: String, Identifiable, CaseIterable {
-    
-    var id: UUID {
-        return UUID()
-    }
-    
-    case todo = "ToDo"
-    case all = "All"
-    case done = "Done"
-}
-
-extension Status {
-    
-    var title: String {
-        switch self {
-        case .todo:
-            return "Todo"
-        case .all:
-            return "All"
-        case .done:
-            return "Done"
-        }
-    }
-}
+//enum Status: String, Identifiable, CaseIterable {
+//
+//    var id: UUID {
+//        return UUID()
+//    }
+//
+//    case todo = "ToDo"
+//    case all = "All"
+//    case done = "Done"
+//}
+//
+//extension Status {
+//
+//    var title: String {
+//        switch self {
+//        case .todo:
+//            return "Todo"
+//        case .all:
+//            return "All"
+//        case .done:
+//            return "Done"
+//        }
+//    }
+//}
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
@@ -67,7 +66,88 @@ struct ContentView: View {
         NavigationView {
             List {
                 if selected == 1 {
-                    Text("Todo")
+//                    Text("Todo")
+                    ForEach(items) { item in
+                        NavigationLink {
+                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                        } label: {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("\(item.name!)")
+                                        .font(.title2)
+                                        .fontWeight(.medium)
+                                    //                                Toggle(isOn: item.isDone!) {
+                                    //                                    Text("Finished")
+                                    //                                }
+                                    //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
+                                    //                                    if favorites.contains(book) {
+                                    //                                        favorites.remove(book)
+                                    //                                    } else {
+                                    //                                        favorites.add(book)
+                                    //                                    }
+                                    //                                }
+                                    //                                .buttonStyle(.borderedProminent)
+                                    //                                .padding()
+                                }
+                                HStack {
+                                    if item.assigned != nil {
+                                        Text("by \(item.assigned!)")
+                                    }
+                                   
+                                    Spacer()
+                                    HStack {
+                                        Text(item.date!, style: .date)
+                                        Text(item.date!, style: .time)
+                                    }
+                                    .font(.subheadline)
+                                    .fontWeight(.light)
+                                    .padding(.leading)
+                                }
+                                
+                            }
+                        }
+                        //                            Button(action: {
+                        //                                showingTask = true
+                        //                            }) {
+                        //
+                        //                                VStack(alignment: .leading) {
+                        //                                    HStack {
+                        //                                        Text("\(item.name!)")
+                        //                                            .font(.title2)
+                        //                                            .fontWeight(.medium)
+                        //                                        //                                Toggle(isOn: item.isDone!) {
+                        //                                        //                                    Text("Finished")
+                        //                                        //                                }
+                        //                                        //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
+                        //                                        //                                    if favorites.contains(book) {
+                        //                                        //                                        favorites.remove(book)
+                        //                                        //                                    } else {
+                        //                                        //                                        favorites.add(book)
+                        //                                        //                                    }
+                        //                                        //                                }
+                        //                                        //                                .buttonStyle(.borderedProminent)
+                        //                                        //                                .padding()
+                        //                                    }
+                        //                                    HStack {
+                        //                                        Text("to \(item.assigned!)")
+                        //
+                        //                                        Text("\(item.date!)")
+                        //                                            .font(.subheadline)
+                        //                                            .fontWeight(.light)
+                        //                                            .padding(.leading)
+                        //                                    }
+                        //
+                        //                                }
+                        //                            }
+                        //                            //                    .background(Color.gray)
+                        //                            .cornerRadius(20)
+                        //                            .sheet(isPresented: $showingTask) {
+                        //                                TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                        //                            }
+                        //                            .buttonStyle(.bordered)
+                    }
+                    .onDelete(perform: deleteItems)
+                    //                .onDelete(perform: DeleteModifier(action: () -> Void))
                 } else if selected == 2 {
                     ForEach(items) { item in
                         NavigationLink {
@@ -151,7 +231,88 @@ struct ContentView: View {
                     .onDelete(perform: deleteItems)
                     //                .onDelete(perform: DeleteModifier(action: () -> Void))
                 } else {
-                    Text("Done")
+//                    Text("Done")
+                    ForEach(items) { item in
+                        NavigationLink {
+                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                        } label: {
+                            VStack(alignment: .leading) {
+                                HStack {
+                                    Text("\(item.name!)")
+                                        .font(.title2)
+                                        .fontWeight(.medium)
+                                    //                                Toggle(isOn: item.isDone!) {
+                                    //                                    Text("Finished")
+                                    //                                }
+                                    //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
+                                    //                                    if favorites.contains(book) {
+                                    //                                        favorites.remove(book)
+                                    //                                    } else {
+                                    //                                        favorites.add(book)
+                                    //                                    }
+                                    //                                }
+                                    //                                .buttonStyle(.borderedProminent)
+                                    //                                .padding()
+                                }
+                                HStack {
+                                    if item.assigned != nil {
+                                        Text("by \(item.assigned!)")
+                                    }
+                                   
+                                    Spacer()
+                                    HStack {
+                                        Text(item.date!, style: .date)
+                                        Text(item.date!, style: .time)
+                                    }
+                                    .font(.subheadline)
+                                    .fontWeight(.light)
+                                    .padding(.leading)
+                                }
+                                
+                            }
+                        }
+                        //                            Button(action: {
+                        //                                showingTask = true
+                        //                            }) {
+                        //
+                        //                                VStack(alignment: .leading) {
+                        //                                    HStack {
+                        //                                        Text("\(item.name!)")
+                        //                                            .font(.title2)
+                        //                                            .fontWeight(.medium)
+                        //                                        //                                Toggle(isOn: item.isDone!) {
+                        //                                        //                                    Text("Finished")
+                        //                                        //                                }
+                        //                                        //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
+                        //                                        //                                    if favorites.contains(book) {
+                        //                                        //                                        favorites.remove(book)
+                        //                                        //                                    } else {
+                        //                                        //                                        favorites.add(book)
+                        //                                        //                                    }
+                        //                                        //                                }
+                        //                                        //                                .buttonStyle(.borderedProminent)
+                        //                                        //                                .padding()
+                        //                                    }
+                        //                                    HStack {
+                        //                                        Text("to \(item.assigned!)")
+                        //
+                        //                                        Text("\(item.date!)")
+                        //                                            .font(.subheadline)
+                        //                                            .fontWeight(.light)
+                        //                                            .padding(.leading)
+                        //                                    }
+                        //
+                        //                                }
+                        //                            }
+                        //                            //                    .background(Color.gray)
+                        //                            .cornerRadius(20)
+                        //                            .sheet(isPresented: $showingTask) {
+                        //                                TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                        //                            }
+                        //                            .buttonStyle(.bordered)
+                    }
+                    .onDelete(perform: deleteItems)
+                    //                .onDelete(perform: DeleteModifier(action: () -> Void))
                 }
                 
             }

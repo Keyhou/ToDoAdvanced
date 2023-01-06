@@ -46,7 +46,7 @@ struct AddTaskView: View {
                         Text("Finished")
                     }
                 }
-                Section(header: Text("Date & Time")) {
+                Section(header: Text("Reminder")) {
                     Toggle(isOn: $isDated) {
                         Text("Date")
                     }

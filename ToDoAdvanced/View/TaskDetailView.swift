@@ -142,7 +142,7 @@ struct TaskDetailView: View {
     private func editItem() {
         withAnimation {
             item.name = name
-            item.type = type
+            item.type = selections.joined()
             item.isDone = isDone
             item.date = date
             item.time = time
