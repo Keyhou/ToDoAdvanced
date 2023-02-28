@@ -59,7 +59,7 @@ struct TaskDetailView: View {
                 }
                 Section(header: Text("Reminder")) {
                     Toggle(isOn: $isDated) {
-                        Text("Date")
+                        Text("Date\n\(date.formatted(.dateTime.day().month(.wide).year()))")
                     }
                     if isDated == true {
                         DatePicker("Choose the date", selection: $date, displayedComponents: .date)
@@ -69,7 +69,7 @@ struct TaskDetailView: View {
                             .datePickerStyle(.graphical)
                     }
                     Toggle(isOn: $isTimed) {
-                        Text("Time")
+                        Text("Time\n\(time.formatted())")
                     }
                     if isTimed == true {
                         DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
@@ -94,7 +94,7 @@ struct TaskDetailView: View {
             }
             .toolbar {
                 ToolbarItem {
-                    ShareLink(item: "Task: \(name)", /*subject: Text("\(assigned)")*/ message: Text("\(details)")) {
+                    ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("\(details)")) {
                         Image(systemName: "square.and.arrow.up")
                     }
                 }
@@ -158,14 +158,14 @@ struct TaskDetailView: View {
 //            newItem.assigned = assigned
 //            newItem.details = details
 //
-//            do {
-//                try viewContext.save()
-//            } catch {
-//                // Replace this implementation with code to handle the error appropriately.
-//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-//                let nsError = error as NSError
-//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-//            }
+            do {
+                try viewContext.save()
+            } catch {
+                // Replace this implementation with code to handle the error appropriately.
+                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                let nsError = error as NSError
+                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+            }
         }
     }
     

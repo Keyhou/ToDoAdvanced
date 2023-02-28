@@ -19,6 +19,8 @@ struct Task: Identifiable {
     var details: String?
 }
 
+var tasks = Task(isDone: true, date: Date(), time: Date())
+
 //class TaskViewModel: ObservableObject {
 //    @FetchRequest(
 //        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],

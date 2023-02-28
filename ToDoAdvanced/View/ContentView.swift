@@ -41,11 +41,15 @@ struct ContentView: View {
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
         animation: .default)
     private var items: FetchedResults<Item>
-    
+
     @State private var showingAddTask = false
     @State private var showingTask = false
     
     @State private var searchText = ""
+    @State private var selectedIndex = 0
+    @State var selected = 2
+    //    @Binding var isDone: Bool
+    
     
     let columns = [
         GridItem(.adaptive(minimum: 100))
@@ -58,15 +62,20 @@ struct ContentView: View {
         var displayName: String { rawValue.capitalized }
     }
     
-    @State private var selectedIndex = 0
-    @State var selected = 2
-    //    @Binding var isDone: Bool
+//    var searchResults: [String] {
+//        if searchText.isEmpty {
+//            return items
+//        } else {
+//            return items.filter { $0.contains(searchText) }
+//        }
+//    }
     
     var body: some View {
         NavigationView {
             List {
                 if selected == 1 {
-//                    Text("Todo")
+                    //                    Text("Todo")
+//                    ForEach(searchResults, id: \.self) { item in
                     ForEach(items) { item in
                         NavigationLink {
                             TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
@@ -93,7 +102,7 @@ struct ContentView: View {
                                     if item.assigned != nil {
                                         Text("by \(item.assigned!)")
                                     }
-                                   
+                                    
                                     Spacer()
                                     HStack {
                                         Text(item.date!, style: .date)
@@ -146,6 +155,7 @@ struct ContentView: View {
                         //                            }
                         //                            .buttonStyle(.bordered)
                     }
+//                }
                     .onDelete(perform: deleteItems)
                     //                .onDelete(perform: DeleteModifier(action: () -> Void))
                 } else if selected == 2 {
@@ -316,7 +326,6 @@ struct ContentView: View {
                 }
                 
             }
-            .searchable(text: $searchText)
             //                LazyVStack(spacing: 20) {
             //                    if selected == 1 {
             //                        Text("Todo")
@@ -400,7 +409,9 @@ struct ContentView: View {
             }
             .navigationBarTitle(Text("Tasks"))
         }
+        .searchable(text: $searchText)
     }
+
     
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
