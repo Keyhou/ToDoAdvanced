@@ -15,6 +15,7 @@ struct ToDoAdvancedApp: App {
         WindowGroup {
             SplashView()
                 .environment(\.managedObjectContext, persistenceController.container.viewContext)
+//            ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
 }
