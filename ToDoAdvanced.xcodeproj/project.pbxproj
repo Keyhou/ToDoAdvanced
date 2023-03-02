@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1E5671529B0AD9B00C86AD5 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */; };
+		A1E5671729B0AE1400C86AD5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671629B0AE1400C86AD5 /* Constants.swift */; };
+		A1E5671929B0B1B000C86AD5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671829B0B1B000C86AD5 /* SplashView.swift */; };
 		EF078E16296579E30072E248 /* ToDoAdvancedApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E15296579E30072E248 /* ToDoAdvancedApp.swift */; };
 		EF078E18296579E30072E248 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = EF078E17296579E30072E248 /* ContentView.swift */; };
 		EF078E1A296579E40072E248 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = EF078E19296579E40072E248 /* Assets.xcassets */; };
@@ -41,6 +44,9 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
+		A1E5671629B0AE1400C86AD5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		A1E5671829B0B1B000C86AD5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
 		EF078E12296579E30072E248 /* ToDoAdvanced.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ToDoAdvanced.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		EF078E15296579E30072E248 /* ToDoAdvancedApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToDoAdvancedApp.swift; sourceTree = "<group>"; };
 		EF078E17296579E30072E248 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -148,9 +154,11 @@
 		EF7BC62929682ADA0011E2D3 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				A1E5671829B0B1B000C86AD5 /* SplashView.swift */,
 				EF078E17296579E30072E248 /* ContentView.swift */,
 				EF078E44296585790072E248 /* TaskDetailView.swift */,
 				EF078E46296586970072E248 /* AddTaskView.swift */,
+				A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -159,6 +167,7 @@
 			isa = PBXGroup;
 			children = (
 				EF7BC62B29682B1D0011E2D3 /* Task.swift */,
+				A1E5671629B0AE1400C86AD5 /* Constants.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -303,9 +312,12 @@
 			buildActionMask = 2147483647;
 			files = (
 				EF7BC62C29682B1D0011E2D3 /* Task.swift in Sources */,
+				A1E5671729B0AE1400C86AD5 /* Constants.swift in Sources */,
 				EF078E1F296579E40072E248 /* Persistence.swift in Sources */,
 				EF078E22296579E40072E248 /* ToDoAdvanced.xcdatamodeld in Sources */,
 				EF7BC6302968506F0011E2D3 /* NotificationHelper.swift in Sources */,
+				A1E5671929B0B1B000C86AD5 /* SplashView.swift in Sources */,
+				A1E5671529B0AD9B00C86AD5 /* ColorPickerView.swift in Sources */,
 				EF078E18296579E30072E248 /* ContentView.swift in Sources */,
 				EF078E47296586970072E248 /* AddTaskView.swift in Sources */,
 				EF078E16296579E30072E248 /* ToDoAdvancedApp.swift in Sources */,
