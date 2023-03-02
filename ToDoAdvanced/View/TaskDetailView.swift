@@ -26,13 +26,23 @@ struct TaskDetailView: View {
     var colors = [1, 2, 3, 4]
     @State var selectedIndex = 0
     @State var isDone: Bool = false
-    @State var date: Date = Date()
+//    @State var date: Date = Date()
     @State private var isDated = false
     @State var time: Date = Date()
     @State private var isTimed = false
     @State var assigned: String = ""
     var assignedPeople = ["Me", "Harry", "Herminone", "Ron"]
     @State var details: String = ""
+    
+    @State private var date = Date()
+    let dateRange: ClosedRange<Date> = {
+        let calendar = Calendar.current
+        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
+        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+        return calendar.date(from:startComponents)!
+            ...
+            calendar.date(from:endComponents)!
+    }()
   
     var body: some View {
             Form {
@@ -59,25 +69,28 @@ struct TaskDetailView: View {
                 }
                 Section(header: Text("Reminder")) {
                     Toggle(isOn: $isDated) {
-                        Text("Date\n\(date.formatted(.dateTime.day().month(.wide).year()))")
+                        Text("\(date.formatted(.dateTime.day().month(.wide).year()))")
+                        Text(date, style: .time)
                     }
                     if isDated == true {
-                        DatePicker("Choose the date", selection: $date, displayedComponents: .date)
+                        DatePicker("Choose the date", selection: $date, in: dateRange, displayedComponents: [.date, .hourAndMinute])
                             .onChange(of: date) {
                                 print($0)
                             }
                             .datePickerStyle(.graphical)
                     }
-                    Toggle(isOn: $isTimed) {
-                        Text("Time\n\(time.formatted())")
-                    }
-                    if isTimed == true {
-                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
-                            .onChange(of: time) {
-                                print($0)
-                            }
-                            .datePickerStyle(.graphical)
-                    }
+                    
+                    
+//                    Toggle(isOn: $isTimed) {
+//                        Text("Time\n\(time.formatted())")
+//                    }
+//                    if isTimed == true {
+//                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
+//                            .onChange(of: time) {
+//                                print($0)
+//                            }
+//                            .datePickerStyle(.graphical)
+//                    }
                 }
                 Section(header: Text("Who's in charge?")) {
                     Picker("People", selection: $assigned) {

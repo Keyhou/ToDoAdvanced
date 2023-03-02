@@ -17,7 +17,7 @@ struct AddTaskView: View {
     @State var type: String
     @State var selections = ["Chores", "Cleaning", "Shopping", "Cooking"]
     @State var isDone: Bool
-    @State var date: Date = Date.now
+//    @State var date: Date = Date.now
     @State private var isDated = false
     var selectedDate = Date()
     @State var time: Date = Date.now
@@ -25,6 +25,16 @@ struct AddTaskView: View {
     @State var assigned: String
     var assignedPeople = ["Me", "Harry", "Herminone", "Ron"]
     @State var details: String
+    
+    @State private var date = Date()
+    let dateRange: ClosedRange<Date> = {
+        let calendar = Calendar.current
+        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
+        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+        return calendar.date(from:startComponents)!
+            ...
+            calendar.date(from:endComponents)!
+    }()
     
     var body: some View {
         NavigationStack {
@@ -48,25 +58,28 @@ struct AddTaskView: View {
                 }
                 Section(header: Text("Reminder")) {
                     Toggle(isOn: $isDated) {
-                        Text("Date")
+                        Text("\(date.formatted(.dateTime.day().month(.wide).year()))")
+                        Text(date, style: .time)
                     }
                     if isDated == true {
-                        DatePicker("Choose the date", selection: $date, displayedComponents: .date)
+                        DatePicker("Choose the date", selection: $date, in: dateRange, displayedComponents: [.date, .hourAndMinute])
                             .onChange(of: date) {
                                 print($0)
                             }
                             .datePickerStyle(.graphical)
                     }
-                    Toggle(isOn: $isTimed) {
-                        Text("Time")
-                    }
-                    if isTimed == true {
-                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
-                            .onChange(of: time) {
-                                print($0)
-                            }
-                            .datePickerStyle(.graphical)
-                    }
+                    
+                    
+//                    Toggle(isOn: $isTimed) {
+//                        Text("Time")
+//                    }
+//                    if isTimed == true {
+//                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
+//                            .onChange(of: time) {
+//                                print($0)
+//                            }
+//                            .datePickerStyle(.graphical)
+//                    }
                 }
                 Section(header: Text("Who's in charge?")) {
                     Picker("People", selection: $assigned) {
@@ -176,6 +189,6 @@ struct AddTaskView: View {
 
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTaskView(name: "", type: "", isDone: false, date: Date(), time: Date(), assigned: "", details: "")
+        AddTaskView(name: "", type: "", isDone: false, time: Date(), assigned: "", details: "")
     }
 }
