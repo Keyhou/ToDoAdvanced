@@ -20,6 +20,7 @@ struct TaskDetailView: View {
         animation: .default)
     private var items: FetchedResults<Item>
     
+    let notificationManager = NotificationManager()
     @State var name: String = ""
     @State var type: String = ""
     var selections = ["Chores", "Cleaning", "Shopping", "Cooking"]
@@ -69,11 +70,12 @@ struct TaskDetailView: View {
                 }
                 Section(header: Text("Reminder")) {
                     Toggle(isOn: $isDated) {
-                        Text("\(date.formatted(.dateTime.day().month(.wide).year()))")
-                        Text(date, style: .time)
+                        Text("\(item.date!.formatted(.dateTime.day().month(.wide).year()))")
+//                        Text(date, style: .time)
+                        Text(item.date!, style: .time)
                     }
                     if isDated == true {
-                        DatePicker("Choose the date", selection: $date, in: dateRange, displayedComponents: [.date, .hourAndMinute])
+                        DatePicker("Choose the date", selection: $date, displayedComponents: [.date, .hourAndMinute])
                             .onChange(of: date) {
                                 print($0)
                             }
@@ -115,32 +117,32 @@ struct TaskDetailView: View {
                     Button {
                         editItem()
                         dismiss()
-                        
+                        scheduleNotification()
                         // AUTO NOTIFICATIONS
-                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                            if success {
-                                print("All set!")
-                            } else if let error = error {
-                                print(error.localizedDescription)
-                            }
-                        }
-                        let content = UNMutableNotificationContent()
-                        content.title = name
-                        content.subtitle = details
-                        content.sound = UNNotificationSound.default
-                        
-                        // show this notification five seconds from now
-                        let comps = Calendar.current.dateComponents([.hour, .minute], from: time)
-                        
-                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-                        
-                        print(comps)
-                        // choose a random identifier
-                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                        
-                        // add our notification request
-                        UNUserNotificationCenter.current().add(request)
-                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+//                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+//                            if success {
+//                                print("All set!")
+//                            } else if let error = error {
+//                                print(error.localizedDescription)
+//                            }
+//                        }
+//                        let content = UNMutableNotificationContent()
+//                        content.title = name
+//                        content.subtitle = details
+//                        content.sound = UNNotificationSound.default
+//
+//                        // show this notification five seconds from now
+//                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+//
+//                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+//
+//                        print(comps)
+//                        // choose a random identifier
+//                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+//
+//                        // add our notification request
+//                        UNUserNotificationCenter.current().add(request)
+//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                         
                     } label: {
                         Text("Edit")
@@ -155,7 +157,8 @@ struct TaskDetailView: View {
     private func editItem() {
         withAnimation {
             item.name = name
-            item.type = selections.joined()
+//            item.type = selections.joined()
+            item.type = type
             item.isDone = isDone
             item.date = date
             item.time = time
@@ -196,6 +199,27 @@ struct TaskDetailView: View {
             }
         }
     }
+    
+    public func scheduleNotification() {
+        let notificationId = UUID()
+        let content = UNMutableNotificationContent()
+        content.body = "Reminder: \(name)"
+        content.sound = UNNotificationSound.default
+        content.userInfo = [
+            "notificationId": "\(notificationId)" // additional info to parse if need
+        ]
+
+        let trigger = UNCalendarNotificationTrigger(
+            dateMatching: NotificationHelper.getTriggerDate(triggerDate: date)!,
+                repeats: false
+        )
+
+        notificationManager.scheduleNotification(
+                id: "\(notificationId)",
+                content: content,
+                trigger: trigger)
+    }
+    
 }
 
 struct TaskDetailView_Previews: PreviewProvider {
@@ -219,7 +243,7 @@ struct TaskDetailView_Previews: PreviewProvider {
 //            .environmentObject(Favorites())
     }
 }
-//
+
 //struct CustomSegmentedView: View {
 //
 //    @Binding var typeIndex: Int

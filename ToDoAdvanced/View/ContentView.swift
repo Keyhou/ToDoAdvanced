@@ -42,6 +42,8 @@ struct ContentView: View {
         animation: .default)
     private var items: FetchedResults<Item>
 
+    let notificationManager = NotificationManager()
+
     @State private var showingAddTask = false
     @State private var showingTask = false
     
@@ -198,45 +200,7 @@ struct ContentView: View {
                                 
                             }
                         }
-                        //                            Button(action: {
-                        //                                showingTask = true
-                        //                            }) {
-                        //
-                        //                                VStack(alignment: .leading) {
-                        //                                    HStack {
-                        //                                        Text("\(item.name!)")
-                        //                                            .font(.title2)
-                        //                                            .fontWeight(.medium)
-                        //                                        //                                Toggle(isOn: item.isDone!) {
-                        //                                        //                                    Text("Finished")
-                        //                                        //                                }
-                        //                                        //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
-                        //                                        //                                    if favorites.contains(book) {
-                        //                                        //                                        favorites.remove(book)
-                        //                                        //                                    } else {
-                        //                                        //                                        favorites.add(book)
-                        //                                        //                                    }
-                        //                                        //                                }
-                        //                                        //                                .buttonStyle(.borderedProminent)
-                        //                                        //                                .padding()
-                        //                                    }
-                        //                                    HStack {
-                        //                                        Text("to \(item.assigned!)")
-                        //
-                        //                                        Text("\(item.date!)")
-                        //                                            .font(.subheadline)
-                        //                                            .fontWeight(.light)
-                        //                                            .padding(.leading)
-                        //                                    }
-                        //
-                        //                                }
-                        //                            }
-                        //                            //                    .background(Color.gray)
-                        //                            .cornerRadius(20)
-                        //                            .sheet(isPresented: $showingTask) {
-                        //                                TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
-                        //                            }
-                        //                            .buttonStyle(.bordered)
+                     
                     }
                     .onDelete(perform: deleteItems)
                     //                .onDelete(perform: DeleteModifier(action: () -> Void))
@@ -281,45 +245,7 @@ struct ContentView: View {
                                 
                             }
                         }
-                        //                            Button(action: {
-                        //                                showingTask = true
-                        //                            }) {
-                        //
-                        //                                VStack(alignment: .leading) {
-                        //                                    HStack {
-                        //                                        Text("\(item.name!)")
-                        //                                            .font(.title2)
-                        //                                            .fontWeight(.medium)
-                        //                                        //                                Toggle(isOn: item.isDone!) {
-                        //                                        //                                    Text("Finished")
-                        //                                        //                                }
-                        //                                        //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
-                        //                                        //                                    if favorites.contains(book) {
-                        //                                        //                                        favorites.remove(book)
-                        //                                        //                                    } else {
-                        //                                        //                                        favorites.add(book)
-                        //                                        //                                    }
-                        //                                        //                                }
-                        //                                        //                                .buttonStyle(.borderedProminent)
-                        //                                        //                                .padding()
-                        //                                    }
-                        //                                    HStack {
-                        //                                        Text("to \(item.assigned!)")
-                        //
-                        //                                        Text("\(item.date!)")
-                        //                                            .font(.subheadline)
-                        //                                            .fontWeight(.light)
-                        //                                            .padding(.leading)
-                        //                                    }
-                        //
-                        //                                }
-                        //                            }
-                        //                            //                    .background(Color.gray)
-                        //                            .cornerRadius(20)
-                        //                            .sheet(isPresented: $showingTask) {
-                        //                                TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, date: item.date ?? .now, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
-                        //                            }
-                        //                            .buttonStyle(.bordered)
+                    
                     }
                     .onDelete(perform: deleteItems)
                     //                .onDelete(perform: DeleteModifier(action: () -> Void))

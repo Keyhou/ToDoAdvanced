@@ -60,7 +60,7 @@ struct SplashView: View {
     
     var body: some View {
         ZStack {
-            ContentView()
+            ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
             
             ZStack {
                 Color("splashcolor")
@@ -82,9 +82,6 @@ struct SplashView: View {
         }
     }
 
-    
-    
-  
   func animateSplash() {
     DispatchQueue.main.asyncAfter(deadline: .now() + 0.25) {
       // You can adjust your own duration
@@ -98,22 +95,6 @@ struct SplashView: View {
       }
     }
   }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
     
 }
 
