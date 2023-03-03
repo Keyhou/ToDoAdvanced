@@ -9,33 +9,66 @@ import SwiftUI
 import CoreData
 import UserNotifications
 
+enum TaskTypes: String, Identifiable, CaseIterable {
+    
+    var id: UUID {
+        return UUID()
+    }
+    
+    case red = "Chores"
+    case green = "Cleaning"
+    case blue = "Shopping"
+    case yellow = "Cooking"
+}
+
+extension TaskTypes {
+
+    var title: String {
+        switch self {
+        case .red:
+            return "Chores"
+        case .green:
+            return "Cleaning"
+        case .blue:
+            return "Shopping"
+        case .yellow:
+            return "Cooking"
+        }
+    }
+}
 struct AddTaskView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss
     
     let notificationManager = NotificationManager()
     @State var name: String
+    @State var priority: String
     @State var type: String
-    var selections = ["Chores", "Cleaning", "Shopping", "Cooking"]
+    var selections =  ["Chores", "Cleaning", "Shopping", "Cooking"]
+//    TaskTypes(rawValue: "Chores")
     @State var isDone: Bool
-//    @State var date: Date = Date.now
+    //    @State var date: Date = Date.now
     @State private var isDated = false
-    var selectedDate = Date()
+    //    var selectedDate = Date()
     @State var time: Date = Date.now
     @State private var isTimed = false
     @State var assigned: String
     var assignedPeople = ["Me", "Harry", "Herminone", "Ron"]
     @State var details: String
+    @State private var selectedColor: Color = .gray
     
-    @State private var date = Date()
-//    let dateRange: ClosedRange<Date> = {
-//        let calendar = Calendar.current
-//        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
-//        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
-//        return calendar.date(from:startComponents)!
-//            ...
-//            calendar.date(from:endComponents)!
-//    }()
+    @State var date: Date
+    //    let dateRange: ClosedRange<Date> = {
+    //        let calendar = Calendar.current
+    //        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
+    //        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+    //        return calendar.date(from:startComponents)!
+    //            ...
+    //            calendar.date(from:endComponents)!
+    //    }()
+    
+
+
     
     var body: some View {
         NavigationStack {
@@ -50,7 +83,17 @@ struct AddTaskView: View {
                         }
                     }
                     .pickerStyle(.segmented)
-                    .colorMultiply(.red)
+//                    .colorMultiply(.red)
+                    
+                }
+                Section(header: Text("Priority")) {
+                    VStack {
+                        ColorPickerView(selectedColor: $selectedColor)
+                            .font(.system(size: 32))
+                    }.frame(maxWidth: .infinity, maxHeight: 200)
+//                        .background(Color(red: 1.0, green: 1.0, blue: 1.0))
+                        .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
+                    
                 }
                 Section(header: Text("Status")) {
                     Toggle(isOn: $isDone) {
@@ -71,16 +114,16 @@ struct AddTaskView: View {
                     }
                     
                     
-//                    Toggle(isOn: $isTimed) {
-//                        Text("Time")
-//                    }
-//                    if isTimed == true {
-//                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
-//                            .onChange(of: time) {
-//                                print($0)
-//                            }
-//                            .datePickerStyle(.graphical)
-//                    }
+                    //                    Toggle(isOn: $isTimed) {
+                    //                        Text("Time")
+                    //                    }
+                    //                    if isTimed == true {
+                    //                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
+                    //                            .onChange(of: time) {
+                    //                                print($0)
+                    //                            }
+                    //                            .datePickerStyle(.graphical)
+                    //                    }
                 }
                 Section(header: Text("Who's in charge?")) {
                     Picker("People", selection: $assigned) {
@@ -108,52 +151,52 @@ struct AddTaskView: View {
                         dismiss()
                         scheduleNotification()
                         // AUTO NOTIFICATIONS
-//                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-//                            if success {
-//                                print("All set!")
-//                            } else if let error = error {
-//                                print(error.localizedDescription)
-//                            }
-//                        }
-//                        let content = UNMutableNotificationContent()
-//                        content.title = name
-//                        content.subtitle = details
-//                        content.sound = UNNotificationSound.default
-//
-//                        // show this notification five seconds from now
-//                        //   let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
-//                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
-//
-//                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-//
-//                        print(comps)
-//                        // choose a random identifier
-//                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-//
-//                        // add our notification request
-//                        UNUserNotificationCenter.current().add(request)
-//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        //                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                        //                            if success {
+                        //                                print("All set!")
+                        //                            } else if let error = error {
+                        //                                print(error.localizedDescription)
+                        //                            }
+                        //                        }
+                        //                        let content = UNMutableNotificationContent()
+                        //                        content.title = name
+                        //                        content.subtitle = details
+                        //                        content.sound = UNNotificationSound.default
+                        //
+                        //                        // show this notification five seconds from now
+                        //                        //   let trigger = UNTimeIntervalNotificationTrigger(timeInterval: 5, repeats: false)
+                        //                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+                        //
+                        //                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+                        //
+                        //                        print(comps)
+                        //                        // choose a random identifier
+                        //                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                        //
+                        //                        // add our notification request
+                        //                        UNUserNotificationCenter.current().add(request)
+                        //                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                         
                         // SCHEDULED NOTIFICATIONS
-//                        var dateComponents = DateComponents()
-//                        dateComponents.calendar = Calendar.current
-//                        let content = UNMutableNotificationContent()
-//                        content.title = name
-//                        content.subtitle = details
-//                        content.sound = UNNotificationSound.default
-//
-//                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
-//
-//                        //                        dateComponents.weekday = 5
-//                        dateComponents.hour = 13
-//                        dateComponents.minute = 53
-//
-//                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-//                        print(comps)
-//
-//                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-//                        UNUserNotificationCenter.current().add(request)
-//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                        //                        var dateComponents = DateComponents()
+                        //                        dateComponents.calendar = Calendar.current
+                        //                        let content = UNMutableNotificationContent()
+                        //                        content.title = name
+                        //                        content.subtitle = details
+                        //                        content.sound = UNNotificationSound.default
+                        //
+                        //                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+                        //
+                        //                        //                        dateComponents.weekday = 5
+                        //                        dateComponents.hour = 13
+                        //                        dateComponents.minute = 53
+                        //
+                        //                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+                        //                        print(comps)
+                        //
+                        //                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                        //                        UNUserNotificationCenter.current().add(request)
+                        //                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
                         
                     } label: {
                         Text("Add")
@@ -169,7 +212,8 @@ struct AddTaskView: View {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
             newItem.name = name
-//            newItem.type = selections.joined()
+            newItem.priority = priority
+            //            newItem.type = selections.joined()
             newItem.type = type
             newItem.isDone = isDone
             newItem.date = date
@@ -196,23 +240,23 @@ struct AddTaskView: View {
         content.userInfo = [
             "notificationId": "\(notificationId)" // additional info to parse if need
         ]
-
+        
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: NotificationHelper.getTriggerDate(triggerDate: date)!,
-                repeats: false
+            repeats: false
         )
-
+        
         notificationManager.scheduleNotification(
-                id: "\(notificationId)",
-                content: content,
-                trigger: trigger)
+            id: "\(notificationId)",
+            content: content,
+            trigger: trigger)
     }
-
+    
     
 }
 
 struct AddTaskView_Previews: PreviewProvider {
     static var previews: some View {
-        AddTaskView(name: "", type: "", isDone: false, time: Date(), assigned: "", details: "")
+        AddTaskView(name: "", priority: "", type: "", isDone: false, time: Date(), assigned: "", details: "", date: .now)
     }
 }

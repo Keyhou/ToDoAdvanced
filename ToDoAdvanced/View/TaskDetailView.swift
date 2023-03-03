@@ -27,153 +27,163 @@ struct TaskDetailView: View {
     var colors = [1, 2, 3, 4]
     @State var selectedIndex = 0
     @State var isDone: Bool = false
-//    @State var date: Date = Date()
+    //    @State var date: Date = Date()
     @State private var isDated = false
     @State var time: Date = Date()
     @State private var isTimed = false
     @State var assigned: String = ""
     var assignedPeople = ["Me", "Harry", "Herminone", "Ron"]
     @State var details: String = ""
+    @State private var selectedColor: Color = .gray
     
-    @State private var date = Date()
-    let dateRange: ClosedRange<Date> = {
-        let calendar = Calendar.current
-        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
-        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
-        return calendar.date(from:startComponents)!
-            ...
-            calendar.date(from:endComponents)!
-    }()
-  
+    @State var date: Date
+    //    let dateRange: ClosedRange<Date> = {
+//        let calendar = Calendar.current
+//        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
+//        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+//        return calendar.date(from:startComponents)!
+//        ...
+//        calendar.date(from:endComponents)!
+//    }()
+    
     var body: some View {
-            Form {
-                Section(header: Text("Name")) {
-                    TextField("Title", text: $name)
-                }
-//                Section(header: Text("Type")) {
-//                    CustomSegmentedView($selectedIndex, selections: selections)
-//                    Text("\(selections[selectedIndex])")
-//                }
-                Section(header: Text("Type")) {
-                    Picker("Types", selection: $type) {
-                        ForEach(selections, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-                    .colorMultiply(.red)
-                }
-                Section(header: Text("Status")) {
-                    Toggle(isOn: $isDone) {
-                        Text("Finished")
+        Form {
+            Section(header: Text("Name")) {
+                TextField("Title", text: $name)
+            }
+            //                Section(header: Text("Type")) {
+            //                    CustomSegmentedView($selectedIndex, selections: selections)
+            //                    Text("\(selections[selectedIndex])")
+            //                }
+            Section(header: Text("Type")) {
+                Picker("Types", selection: $type) {
+                    ForEach(selections, id: \.self) {
+                        Text($0)
                     }
                 }
-                Section(header: Text("Reminder")) {
-                    Toggle(isOn: $isDated) {
-                        Text("\(item.date!.formatted(.dateTime.day().month(.wide).year()))")
-//                        Text(date, style: .time)
-                        Text(item.date!, style: .time)
-                    }
-                    if isDated == true {
-                        DatePicker("Choose the date", selection: $date, displayedComponents: [.date, .hourAndMinute])
-                            .onChange(of: date) {
-                                print($0)
-                            }
-                            .datePickerStyle(.graphical)
-                    }
-                    
-                    
-//                    Toggle(isOn: $isTimed) {
-//                        Text("Time\n\(time.formatted())")
-//                    }
-//                    if isTimed == true {
-//                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
-//                            .onChange(of: time) {
-//                                print($0)
-//                            }
-//                            .datePickerStyle(.graphical)
-//                    }
-                }
-                Section(header: Text("Who's in charge?")) {
-                    Picker("People", selection: $assigned) {
-                        ForEach(assignedPeople, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                }
-                .pickerStyle(.automatic)
-                Section(header: Text("Details")) {
-                    TextEditor(text: $details)
-                }
+                .pickerStyle(.segmented)
+                //                    .colorMultiply(.red)
+            }
+            Section(header: Text("Priority")) {
+                VStack {
+                    ColorPickerView(selectedColor: $selectedColor)
+                        .font(.system(size: 32))
+                }.frame(maxWidth: .infinity, maxHeight: 200)
+//                        .background(Color(red: 1.0, green: 1.0, blue: 1.0))
+                    .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
                 
             }
-            .toolbar {
-                ToolbarItem {
-                    ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("\(details)")) {
-                        Image(systemName: "square.and.arrow.up")
-                    }
-                }
-                ToolbarItem(placement: .navigationBarTrailing) {
-                    Button {
-                        editItem()
-                        dismiss()
-                        scheduleNotification()
-                        // AUTO NOTIFICATIONS
-//                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-//                            if success {
-//                                print("All set!")
-//                            } else if let error = error {
-//                                print(error.localizedDescription)
-//                            }
-//                        }
-//                        let content = UNMutableNotificationContent()
-//                        content.title = name
-//                        content.subtitle = details
-//                        content.sound = UNNotificationSound.default
-//
-//                        // show this notification five seconds from now
-//                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
-//
-//                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-//
-//                        print(comps)
-//                        // choose a random identifier
-//                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-//
-//                        // add our notification request
-//                        UNUserNotificationCenter.current().add(request)
-//                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                        
-                    } label: {
-                        Text("Edit")
-                            .fontWeight(.bold)
-                    }
-                    .disabled(self.name.isEmpty)
+            Section(header: Text("Status")) {
+                Toggle(isOn: $isDone) {
+                    Text("Finished")
                 }
             }
+            Section(header: Text("Reminder")) {
+                Toggle(isOn: $isDated) {
+                    Text("\(item.date!.formatted(.dateTime.day().month(.wide).year()))")
+                    //                        Text(date, style: .time)
+                    Text(item.date!, style: .time)
+                }
+                if isDated == true {
+                    DatePicker("Choose the date", selection: $date, displayedComponents: [.date, .hourAndMinute])
+                        .onChange(of: date) {
+                            print($0)
+                        }
+                        .datePickerStyle(.graphical)
+                }
+                
+                
+                //                    Toggle(isOn: $isTimed) {
+                //                        Text("Time\n\(time.formatted())")
+                //                    }
+                //                    if isTimed == true {
+                //                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
+                //                            .onChange(of: time) {
+                //                                print($0)
+                //                            }
+                //                            .datePickerStyle(.graphical)
+                //                    }
+            }
+            Section(header: Text("Who's in charge?")) {
+                Picker("People", selection: $assigned) {
+                    ForEach(assignedPeople, id: \.self) {
+                        Text($0)
+                    }
+                }
+            }
+            .pickerStyle(.automatic)
+            Section(header: Text("Details")) {
+                TextEditor(text: $details)
+            }
             
-//        }
+        }
+        .toolbar {
+            ToolbarItem {
+                ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("\(details)")) {
+                    Image(systemName: "square.and.arrow.up")
+                }
+            }
+            ToolbarItem(placement: .navigationBarTrailing) {
+                Button {
+                    editItem()
+                    dismiss()
+                    scheduleNotification()
+                    // AUTO NOTIFICATIONS
+                    //                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
+                    //                            if success {
+                    //                                print("All set!")
+                    //                            } else if let error = error {
+                    //                                print(error.localizedDescription)
+                    //                            }
+                    //                        }
+                    //                        let content = UNMutableNotificationContent()
+                    //                        content.title = name
+                    //                        content.subtitle = details
+                    //                        content.sound = UNNotificationSound.default
+                    //
+                    //                        // show this notification five seconds from now
+                    //                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
+                    //
+                    //                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
+                    //
+                    //                        print(comps)
+                    //                        // choose a random identifier
+                    //                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
+                    //
+                    //                        // add our notification request
+                    //                        UNUserNotificationCenter.current().add(request)
+                    //                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
+                    
+                } label: {
+                    Text("Edit")
+                        .fontWeight(.bold)
+                }
+                .disabled(self.name.isEmpty)
+            }
+        }
+        
+        //        }
     }
     private func editItem() {
         withAnimation {
             item.name = name
-//            item.type = selections.joined()
+            //            item.type = selections.joined()
             item.type = type
             item.isDone = isDone
             item.date = date
             item.time = time
             item.assigned = assigned
             item.details = details
-//            let newItem = Item(context: viewContext)
-//            newItem.timestamp = Date()
-//            newItem.name = name
-//            newItem.type = type
-//            newItem.isDone = isDone
-//            newItem.date = date
-//            newItem.time = time
-//            newItem.assigned = assigned
-//            newItem.details = details
-//
+            //            let newItem = Item(context: viewContext)
+            //            newItem.timestamp = Date()
+            //            newItem.name = name
+            //            newItem.type = type
+            //            newItem.isDone = isDone
+            //            newItem.date = date
+            //            newItem.time = time
+            //            newItem.assigned = assigned
+            //            newItem.details = details
+            //
             do {
                 try viewContext.save()
             } catch {
@@ -208,16 +218,16 @@ struct TaskDetailView: View {
         content.userInfo = [
             "notificationId": "\(notificationId)" // additional info to parse if need
         ]
-
+        
         let trigger = UNCalendarNotificationTrigger(
             dateMatching: NotificationHelper.getTriggerDate(triggerDate: date)!,
-                repeats: false
+            repeats: false
         )
-
+        
         notificationManager.scheduleNotification(
-                id: "\(notificationId)",
-                content: content,
-                trigger: trigger)
+            id: "\(notificationId)",
+            content: content,
+            trigger: trigger)
     }
     
 }
@@ -238,9 +248,9 @@ struct TaskDetailView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
-        TaskDetailView(item: item)
+        TaskDetailView(item: item, date: Date())
             .environment(\.managedObjectContext, persistence.container.viewContext)
-//            .environmentObject(Favorites())
+        //            .environmentObject(Favorites())
     }
 }
 
@@ -278,11 +288,11 @@ struct CustomSegmentedView: View {
     init(_ currentIndex: Binding<Int>, selections: [String]) {
         self._currentIndex = currentIndex
         self.selections = selections
-//        if currentIndex = 0 {
-//            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.orange.opacity(0.3))
-//        } else {
-//            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.blue.opacity(0.3))
-//        }
+        //        if currentIndex = 0 {
+        //            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.orange.opacity(0.3))
+        //        } else {
+        //            UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.blue.opacity(0.3))
+        //        }
         UISegmentedControl.appearance().selectedSegmentTintColor = UIColor(Color.blue.opacity(0.1))
         UISegmentedControl.appearance().backgroundColor =
         UIColor(Color.white.opacity(0.3))
@@ -296,11 +306,11 @@ struct CustomSegmentedView: View {
                 ForEach(selections.indices, id: \.self) { index in
                     Text(selections[index])
                         .tag(index)
-//                        .foregroundColor(Color.blue)
+                    //                        .foregroundColor(Color.blue)
                 }
             }
             .pickerStyle(.segmented)
-//            .tint(.orange)
+            //            .tint(.orange)
         }
     }
 }

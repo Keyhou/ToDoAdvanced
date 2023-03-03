@@ -80,13 +80,24 @@ struct ContentView: View {
 //                    ForEach(searchResults, id: \.self) { item in
                     ForEach(items) { item in
                         NavigationLink {
-                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details", date: Date())
                         } label: {
                             VStack(alignment: .leading) {
                                 HStack {
                                     Text("\(item.name!)")
                                         .font(.title2)
                                         .fontWeight(.medium)
+                                    Spacer()
+                                    // Priority Circle color to do
+//                                    Image(systemName: selectedColor == color ? Constants.Icons.recordCircleFill: Constants.Icons.circleFill)
+//                                        .foregroundColor(color)
+//                                        .clipShape(Circle())
+//                                        .onTapGesture {
+//                                            print(color)
+//                                            selectedColor = color
+//                                        }
+                                    
+                                    
                                     //                                Toggle(isOn: item.isDone!) {
                                     //                                    Text("Finished")
                                     //                                }
@@ -163,7 +174,7 @@ struct ContentView: View {
                 } else if selected == 2 {
                     ForEach(items) { item in
                         NavigationLink {
-                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details", date: Date())
                         } label: {
                             VStack(alignment: .leading) {
                                 HStack {
@@ -208,7 +219,7 @@ struct ContentView: View {
 //                    Text("Done")
                     ForEach(items) { item in
                         NavigationLink {
-                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details")
+                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details", date: Date())
                         } label: {
                             VStack(alignment: .leading) {
                                 HStack {
@@ -331,7 +342,7 @@ struct ContentView: View {
                 }
             }
             .sheet(isPresented: $showingAddTask) {
-                AddTaskView(name: "", type: "", isDone: false, time: Date(), assigned: "", details: "")
+                AddTaskView(name: "", priority: "", type: "", isDone: false, time: Date(), assigned: "", details: "", date: .now)
             }
             .navigationBarTitle(Text("Tasks"))
         }

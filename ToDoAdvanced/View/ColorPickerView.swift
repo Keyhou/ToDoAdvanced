@@ -9,11 +9,11 @@ import SwiftUI
 
 struct ColorPickerView: View {
     
-    let colors: [Color] = [.red, .green, .blue, .yellow]
+    let colors: [Color] = [.green, .gray, .red]
     @Binding var selectedColor: Color
     
     var body: some View {
-        HStack {
+        HStack(spacing: 75) {
             ForEach(colors, id: \.self) { color in
                 Image(systemName: selectedColor == color ? Constants.Icons.recordCircleFill: Constants.Icons.circleFill)
                     .foregroundColor(color)
