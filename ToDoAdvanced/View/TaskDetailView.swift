@@ -117,6 +117,7 @@ struct TaskDetailView: View {
             }
             
         }
+//        .offset(y: -1)
         .toolbar {
             ToolbarItem {
                 ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("\(details)")) {
