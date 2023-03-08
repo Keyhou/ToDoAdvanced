@@ -129,32 +129,6 @@ struct TaskDetailView: View {
                     editItem()
                     dismiss()
                     scheduleNotification()
-                    // AUTO NOTIFICATIONS
-                    //                        UNUserNotificationCenter.current().requestAuthorization(options: [.alert, .badge, .sound]) { success, error in
-                    //                            if success {
-                    //                                print("All set!")
-                    //                            } else if let error = error {
-                    //                                print(error.localizedDescription)
-                    //                            }
-                    //                        }
-                    //                        let content = UNMutableNotificationContent()
-                    //                        content.title = name
-                    //                        content.subtitle = details
-                    //                        content.sound = UNNotificationSound.default
-                    //
-                    //                        // show this notification five seconds from now
-                    //                        let comps = Calendar.current.dateComponents([.hour, .minute], from: date)
-                    //
-                    //                        let trigger = UNCalendarNotificationTrigger(dateMatching: comps, repeats: true)
-                    //
-                    //                        print(comps)
-                    //                        // choose a random identifier
-                    //                        let request = UNNotificationRequest(identifier: UUID().uuidString, content: content, trigger: trigger)
-                    //
-                    //                        // add our notification request
-                    //                        UNUserNotificationCenter.current().add(request)
-                    //                        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
-                    
                 } label: {
                     Text("Edit")
                         .fontWeight(.bold)

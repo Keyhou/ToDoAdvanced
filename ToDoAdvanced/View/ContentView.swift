@@ -344,7 +344,7 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddTask) {
                 AddTaskView(name: "", priority: "", type: "", isDone: false, time: Date(), assigned: "", details: "", date: .now)
             }
-            .navigationBarTitle(Text("Tasks"))
+            .navigationBarTitle(Text("Tasks"), displayMode: .inline)
         }
         .searchable(text: $searchText)
     }
