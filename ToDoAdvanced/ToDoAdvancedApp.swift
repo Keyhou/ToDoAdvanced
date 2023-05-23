@@ -19,9 +19,10 @@ struct ToDoAdvancedApp: App {
     }
     var body: some Scene {
         WindowGroup {
-            SplashView()
-                .environment(\.managedObjectContext, persistenceController.container.viewContext)
-//            ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+//            SplashView()
+//                .environment(\.managedObjectContext, persistenceController.container.viewContext)
+            ContentView()
+                .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
         }
     }
     
