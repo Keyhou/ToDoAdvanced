@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A1BD90152A2753F5007593F1 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD90142A2753F5007593F1 /* TaskViewModel.swift */; };
+		A1BD90172A276CA1007593F1 /* TaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD90162A276CA1007593F1 /* TaskFilter.swift */; };
 		A1E5671529B0AD9B00C86AD5 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */; };
 		A1E5671729B0AE1400C86AD5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671629B0AE1400C86AD5 /* Constants.swift */; };
 		A1E5671929B0B1B000C86AD5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671829B0B1B000C86AD5 /* SplashView.swift */; };
@@ -44,6 +46,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		A1BD90142A2753F5007593F1 /* TaskViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskViewModel.swift; sourceTree = "<group>"; };
+		A1BD90162A276CA1007593F1 /* TaskFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilter.swift; sourceTree = "<group>"; };
+		A1BD90182A27713F007593F1 /* ToDoAdvanced.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDoAdvanced.entitlements; sourceTree = "<group>"; };
+		A1BD90192A27716A007593F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
 		A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		A1E5671629B0AE1400C86AD5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A1E5671829B0B1B000C86AD5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -114,6 +120,8 @@
 		EF078E14296579E30072E248 /* ToDoAdvanced */ = {
 			isa = PBXGroup;
 			children = (
+				A1BD90192A27716A007593F1 /* Info.plist */,
+				A1BD90182A27713F007593F1 /* ToDoAdvanced.entitlements */,
 				EF078E15296579E30072E248 /* ToDoAdvancedApp.swift */,
 				EF7BC62A29682AF80011E2D3 /* Model */,
 				EF7BC62929682ADA0011E2D3 /* View */,
@@ -177,6 +185,8 @@
 			children = (
 				EF7BC62F2968506F0011E2D3 /* NotificationHelper.swift */,
 				EF7BC62D29684FB40011E2D3 /* NotificationManager.swift */,
+				A1BD90142A2753F5007593F1 /* TaskViewModel.swift */,
+				A1BD90162A276CA1007593F1 /* TaskFilter.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -317,7 +327,9 @@
 				EF078E22296579E40072E248 /* ToDoAdvanced.xcdatamodeld in Sources */,
 				EF7BC6302968506F0011E2D3 /* NotificationHelper.swift in Sources */,
 				A1E5671929B0B1B000C86AD5 /* SplashView.swift in Sources */,
+				A1BD90152A2753F5007593F1 /* TaskViewModel.swift in Sources */,
 				A1E5671529B0AD9B00C86AD5 /* ColorPickerView.swift in Sources */,
+				A1BD90172A276CA1007593F1 /* TaskFilter.swift in Sources */,
 				EF078E18296579E30072E248 /* ContentView.swift in Sources */,
 				EF078E47296586970072E248 /* AddTaskView.swift in Sources */,
 				EF078E16296579E30072E248 /* ToDoAdvancedApp.swift in Sources */,
@@ -478,12 +490,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ToDoAdvanced/ToDoAdvanced.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ToDoAdvanced/Preview Content\"";
 				DEVELOPMENT_TEAM = TBRLBN5H2K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ToDoAdvanced/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -507,12 +521,14 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = ToDoAdvanced/ToDoAdvanced.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"ToDoAdvanced/Preview Content\"";
 				DEVELOPMENT_TEAM = TBRLBN5H2K;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = ToDoAdvanced/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
