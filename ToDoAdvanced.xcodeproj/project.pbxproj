@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		A1BD90152A2753F5007593F1 /* TaskViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD90142A2753F5007593F1 /* TaskViewModel.swift */; };
 		A1BD90172A276CA1007593F1 /* TaskFilter.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD90162A276CA1007593F1 /* TaskFilter.swift */; };
+		A1BD901B2A279394007593F1 /* ItemExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1BD901A2A279394007593F1 /* ItemExtension.swift */; };
 		A1E5671529B0AD9B00C86AD5 /* ColorPickerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */; };
 		A1E5671729B0AE1400C86AD5 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671629B0AE1400C86AD5 /* Constants.swift */; };
 		A1E5671929B0B1B000C86AD5 /* SplashView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A1E5671829B0B1B000C86AD5 /* SplashView.swift */; };
@@ -50,6 +51,7 @@
 		A1BD90162A276CA1007593F1 /* TaskFilter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TaskFilter.swift; sourceTree = "<group>"; };
 		A1BD90182A27713F007593F1 /* ToDoAdvanced.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = ToDoAdvanced.entitlements; sourceTree = "<group>"; };
 		A1BD90192A27716A007593F1 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; path = Info.plist; sourceTree = "<group>"; };
+		A1BD901A2A279394007593F1 /* ItemExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ItemExtension.swift; sourceTree = "<group>"; };
 		A1E5671429B0AD9B00C86AD5 /* ColorPickerView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ColorPickerView.swift; sourceTree = "<group>"; };
 		A1E5671629B0AE1400C86AD5 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
 		A1E5671829B0B1B000C86AD5 /* SplashView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SplashView.swift; sourceTree = "<group>"; };
@@ -187,6 +189,7 @@
 				EF7BC62D29684FB40011E2D3 /* NotificationManager.swift */,
 				A1BD90142A2753F5007593F1 /* TaskViewModel.swift */,
 				A1BD90162A276CA1007593F1 /* TaskFilter.swift */,
+				A1BD901A2A279394007593F1 /* ItemExtension.swift */,
 			);
 			path = ViewModel;
 			sourceTree = "<group>";
@@ -333,6 +336,7 @@
 				EF078E18296579E30072E248 /* ContentView.swift in Sources */,
 				EF078E47296586970072E248 /* AddTaskView.swift in Sources */,
 				EF078E16296579E30072E248 /* ToDoAdvancedApp.swift in Sources */,
+				A1BD901B2A279394007593F1 /* ItemExtension.swift in Sources */,
 				EF7BC62E29684FB40011E2D3 /* NotificationManager.swift in Sources */,
 				EF078E45296585790072E248 /* TaskDetailView.swift in Sources */,
 			);

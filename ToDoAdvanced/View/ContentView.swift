@@ -36,6 +36,8 @@ import UserNotifications
 
 struct ContentView: View {
     @Environment(\.managedObjectContext) private var viewContext
+    @EnvironmentObject var taskViewModel: TaskViewModel
+    @State var selectedFilter = TaskFilter.All
     
     @FetchRequest(
         sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
@@ -349,6 +351,21 @@ struct ContentView: View {
         .searchable(text: $searchText)
     }
 
+    private func filteredItems() -> [Item] {
+        if selectedFilter == TaskFilter.Done {
+            return taskViewModel.items.filter {$0.isCompleted()}
+        }
+        
+        if selectedFilter == TaskFilter.All {
+            return taskViewModel.items.filter {$0.isCompleted() && !$0.isCompleted()}
+        }
+        
+        if selectedFilter == TaskFilter.ToDo {
+            return taskViewModel.items.filter {!$0.isCompleted()}
+        }
+        
+        return taskViewModel.items
+    }
     
     private func deleteItems(offsets: IndexSet) {
         withAnimation {
