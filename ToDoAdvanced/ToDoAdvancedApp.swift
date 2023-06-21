@@ -10,7 +10,8 @@ import SwiftUI
 @main
 struct ToDoAdvancedApp: App {
     let persistenceController = PersistenceController.shared
-
+    @Environment(\.scenePhase) var scenePhase
+    
     private let notificationManager = NotificationManager()
 
     init() {
@@ -23,6 +24,9 @@ struct ToDoAdvancedApp: App {
 //                .environment(\.managedObjectContext, persistenceController.container.viewContext)
             ContentView()
                 .environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+        }
+        .onChange(of: scenePhase) { _ in
+            persistenceController.save()
         }
     }
     

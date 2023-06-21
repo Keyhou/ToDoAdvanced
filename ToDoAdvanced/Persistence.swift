@@ -14,16 +14,16 @@ struct PersistenceController {
         let result = PersistenceController(inMemory: true)
         let viewContext = result.container.viewContext
         
-        for _ in 0..<3 {
+        for _ in 0..<1 {
             let newItem = Item(context: viewContext)
             newItem.timestamp = Date()
-            newItem.name = "Grocery"
-            newItem.type = "Shop"
+            newItem.name = "Task example"
+            newItem.type = ""
             newItem.isDone = false
             newItem.date = Date()
             newItem.time = Date()
             newItem.assigned = "Me"
-            newItem.details = "WE NEED 🍫🍩🍪🍦"
+            newItem.details = ""
         }
         
         do {
@@ -47,6 +47,7 @@ struct PersistenceController {
         }
         container.loadPersistentStores(completionHandler: { (storeDescription, error) in
             if let error = error as NSError? {
+                
                 // Replace this implementation with code to handle the error appropriately.
                 // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
 
@@ -63,4 +64,17 @@ struct PersistenceController {
         })
         container.viewContext.automaticallyMergesChangesFromParent = true
     }
+    
+    func save() {
+        let context = container.viewContext
+
+        if context.hasChanges {
+            do {
+                try context.save()
+            } catch {
+                // Show some error here
+            }
+        }
+    }
+    
 }
