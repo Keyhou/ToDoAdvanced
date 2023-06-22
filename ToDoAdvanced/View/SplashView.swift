@@ -14,6 +14,7 @@ struct SplashView: View {
     @State var isActive: Bool = false
     @State var scale: CGFloat = 0
     @AppStorage("shouldShowOnboarding") var shouldShowOnboarding: Bool = true
+    
     //    @Binding var shouldShowOnboarding: Bool
     
     //    var body: some View {

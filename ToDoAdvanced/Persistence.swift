@@ -23,7 +23,7 @@ struct PersistenceController {
             newItem.date = Date()
             newItem.time = Date()
             newItem.assigned = "Me"
-            newItem.details = ""
+            newItem.details = "Task details "
         }
         
         do {

@@ -77,7 +77,6 @@ struct ContentView: View {
     var body: some View {
         NavigationView {
             List {
-                if selected == 1 {
                     //                    Text("Todo")
 //                    ForEach(searchResults, id: \.self) { item in
                     ForEach(items) { item in
@@ -90,6 +89,7 @@ struct ContentView: View {
                                         .font(.title2)
                                         .fontWeight(.medium)
                                     Spacer()
+                                    
                                     // Priority Circle color to do
 //                                    Image(systemName: selectedColor == color ? Constants.Icons.recordCircleFill: Constants.Icons.circleFill)
 //                                        .foregroundColor(color)
@@ -114,22 +114,23 @@ struct ContentView: View {
                                     //                                .padding()
                                 }
                                 HStack {
-                                    if item.assigned != nil {
-                                        Text("by \(item.assigned!)")
-                                    }
-                                    
-                                    Spacer()
+//                                    if item.assigned != nil {
+//                                        Text("by \(item.assigned!)")
+//                                    }
+//
+//                                    Spacer()
                                     HStack {
                                         Text(item.date!, style: .date)
                                         Text(item.date!, style: .time)
                                     }
                                     .font(.subheadline)
                                     .fontWeight(.light)
-                                    .padding(.leading)
+//                                    .padding(.leading)
                                 }
                                 
                             }
                         }
+                        
                         //                            Button(action: {
                         //                                showingTask = true
                         //                            }) {
@@ -173,98 +174,10 @@ struct ContentView: View {
 //                }
                     .onDelete(perform: deleteItems)
                     //                .onDelete(perform: DeleteModifier(action: () -> Void))
-                } else if selected == 2 {
-                    ForEach(items) { item in
-                        NavigationLink {
-                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details", date: Date())
-                        } label: {
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text("\(item.name!)")
-                                        .font(.title2)
-                                        .fontWeight(.medium)
-                                    //                                Toggle(isOn: item.isDone!) {
-                                    //                                    Text("Finished")
-                                    //                                }
-                                    //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
-                                    //                                    if favorites.contains(book) {
-                                    //                                        favorites.remove(book)
-                                    //                                    } else {
-                                    //                                        favorites.add(book)
-                                    //                                    }
-                                    //                                }
-                                    //                                .buttonStyle(.borderedProminent)
-                                    //                                .padding()
-                                }
-                                HStack {
-                                    if item.assigned != nil {
-                                        Text("by \(item.assigned!)")
-                                    }
-                                   
-                                    Spacer()
-                                    HStack {
-                                        Text(item.date!, style: .date)
-                                        Text(item.date!, style: .time)
-                                    }
-                                    .font(.subheadline)
-                                    .fontWeight(.light)
-                                    .padding(.leading)
-                                }
-                                
-                            }
-                        }
-                     
-                    }
-                    .onDelete(perform: deleteItems)
-                    //                .onDelete(perform: DeleteModifier(action: () -> Void))
-                } else {
-//                    Text("Done")
-                    ForEach(items) { item in
-                        NavigationLink {
-                            TaskDetailView(item: item, name: item.name ?? "Name", type: item.type ?? "Type", isDone: item.isDone, time: item.time ?? .now, assigned: item.assigned ?? "Voldemort", details: item.details ?? "Details", date: Date())
-                        } label: {
-                            VStack(alignment: .leading) {
-                                HStack {
-                                    Text("\(item.name!)")
-                                        .font(.title2)
-                                        .fontWeight(.medium)
-                                    //                                Toggle(isOn: item.isDone!) {
-                                    //                                    Text("Finished")
-                                    //                                }
-                                    //                                Button(favorites.contains(book) ? "Remove from Favorites" : "Add to Favorites") {
-                                    //                                    if favorites.contains(book) {
-                                    //                                        favorites.remove(book)
-                                    //                                    } else {
-                                    //                                        favorites.add(book)
-                                    //                                    }
-                                    //                                }
-                                    //                                .buttonStyle(.borderedProminent)
-                                    //                                .padding()
-                                }
-                                HStack {
-                                    if item.assigned != nil {
-                                        Text("by \(item.assigned!)")
-                                    }
-                                   
-                                    Spacer()
-                                    HStack {
-                                        Text(item.date!, style: .date)
-                                        Text(item.date!, style: .time)
-                                    }
-                                    .font(.subheadline)
-                                    .fontWeight(.light)
-                                    .padding(.leading)
-                                }
-                                
-                            }
-                        }
                     
-                    }
-                    .onDelete(perform: deleteItems)
-                    //                .onDelete(perform: DeleteModifier(action: () -> Void))
-                }
                 
             }
+            
             //                LazyVStack(spacing: 20) {
             //                    if selected == 1 {
             //                        Text("Todo")
@@ -323,18 +236,18 @@ struct ContentView: View {
                     EditButton()
                     //                            .hidden()
                 }
-                ToolbarItem(placement: .principal) {
-                    VStack {
-                        Picker(selection: $selected, label: Text("Picker"), content: {
-                            Text("ToDo").tag(1)
-                            Text("All").tag(2)
-                            Text("Done").tag(3)
-                        })
-                        .pickerStyle(SegmentedPickerStyle())
-                        .padding()
-                        
-                    }
-                }
+//                ToolbarItem(placement: .principal) {
+//                    VStack {
+//                        Picker(selection: $selected, label: Text("Picker"), content: {
+//                            Text("ToDo").tag(1)
+//                            Text("All").tag(2)
+//                            Text("Done").tag(3)
+//                        })
+//                        .pickerStyle(SegmentedPickerStyle())
+//                        .padding()
+//
+//                    }
+//                }
                 ToolbarItem(placement: .navigationBarTrailing) {
                     Button {
                         showingAddTask.toggle()
@@ -346,9 +259,9 @@ struct ContentView: View {
             .sheet(isPresented: $showingAddTask) {
                 AddTaskView(name: "", priority: "", type: "", isDone: false, time: Date(), assigned: "", details: "", date: .now)
             }
-            .navigationBarTitle(Text("Tasks"), displayMode: .inline)
+            .navigationBarTitle(Text("To Do"), displayMode: .inline)
         }
-        .searchable(text: $searchText)
+//        .searchable(text: $searchText)
     }
 
     private func filteredItems() -> [Item] {
@@ -412,6 +325,10 @@ struct ContentView_Previews: PreviewProvider {
         ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
     }
 }
+
+
+
+
 
 
 struct DeleteModifier: ViewModifier {

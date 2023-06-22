@@ -55,15 +55,15 @@ struct TaskDetailView: View {
             //                    CustomSegmentedView($selectedIndex, selections: selections)
             //                    Text("\(selections[selectedIndex])")
             //                }
-            Section(header: Text("Type")) {
-                Picker("Types", selection: $type) {
-                    ForEach(selections, id: \.self) {
-                        Text($0)
-                    }
-                }
-                .pickerStyle(.segmented)
-                //                    .colorMultiply(.red)
-            }
+//            Section(header: Text("Type")) {
+//                Picker("Types", selection: $type) {
+//                    ForEach(selections, id: \.self) {
+//                        Text($0)
+//                    }
+//                }
+//                .pickerStyle(.segmented)
+//                //                    .colorMultiply(.red)
+//            }
             Section(header: Text("Priority")) {
                 VStack {
                     ColorPickerView(selectedColor: $selectedColor)
@@ -104,14 +104,14 @@ struct TaskDetailView: View {
                 //                            .datePickerStyle(.graphical)
                 //                    }
             }
-            Section(header: Text("Who's in charge?")) {
-                Picker("People", selection: $assigned) {
-                    ForEach(assignedPeople, id: \.self) {
-                        Text($0)
-                    }
-                }
-            }
-            .pickerStyle(.automatic)
+//            Section(header: Text("Who's in charge?")) {
+//                Picker("People", selection: $assigned) {
+//                    ForEach(assignedPeople, id: \.self) {
+//                        Text($0)
+//                    }
+//                }
+//            }
+//            .pickerStyle(.automatic)
             Section(header: Text("Details")) {
                 TextEditor(text: $details)
             }
@@ -120,7 +120,7 @@ struct TaskDetailView: View {
 //        .offset(y: -1)
         .toolbar {
             ToolbarItem {
-                ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("\(details)")) {
+                ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("// \(details)")) {
                     Image(systemName: "square.and.arrow.up")
                 }
             }

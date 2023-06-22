@@ -36,6 +36,7 @@ extension TaskTypes {
         }
     }
 }
+
 struct AddTaskView: View {
     @Environment(\.managedObjectContext) private var viewContext
     @Environment(\.dismiss) var dismiss
@@ -76,16 +77,16 @@ struct AddTaskView: View {
                 Section(header: Text("Name")) {
                     TextField("Title", text: $name)
                 }
-                Section(header: Text("Type")) {
-                    Picker("Types", selection: $type) {
-                        ForEach(selections, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                    .pickerStyle(.segmented)
-//                    .colorMultiply(.red)
-                    
-                }
+//                Section(header: Text("Type")) {
+//                    Picker("Types", selection: $type) {
+//                        ForEach(selections, id: \.self) {
+//                            Text($0)
+//                        }
+//                    }
+//                    .pickerStyle(.segmented)
+////                    .colorMultiply(.red)
+//
+//                }
                 Section(header: Text("Priority")) {
                     VStack {
                         ColorPickerView(selectedColor: $selectedColor)
@@ -125,14 +126,14 @@ struct AddTaskView: View {
                     //                            .datePickerStyle(.graphical)
                     //                    }
                 }
-                Section(header: Text("Who's in charge?")) {
-                    Picker("People", selection: $assigned) {
-                        ForEach(assignedPeople, id: \.self) {
-                            Text($0)
-                        }
-                    }
-                }
-                .pickerStyle(.automatic)
+//                Section(header: Text("Who's in charge?")) {
+//                    Picker("People", selection: $assigned) {
+//                        ForEach(assignedPeople, id: \.self) {
+//                            Text($0)
+//                        }
+//                    }
+//                }
+//                .pickerStyle(.automatic)
                 Section(header: Text("Details")) {
                     TextEditor(text: $details)
                 }
