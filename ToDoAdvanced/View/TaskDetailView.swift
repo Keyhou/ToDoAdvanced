@@ -9,6 +9,210 @@ import SwiftUI
 import CoreData
 import UserNotifications
 
+//struct TaskDetailView: View {
+//    var item: Item
+//    
+//    @Environment(\.managedObjectContext) private var viewContext
+//    @Environment(\.dismiss) var dismiss
+//    
+//    @FetchRequest(
+//        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+//        animation: .default)
+//    private var items: FetchedResults<Item>
+//    
+//    let notificationManager = NotificationManager()
+//    @State var name: String = ""
+//    @State var type: String = ""
+//    var selections = ["Chores", "Cleaning", "Shopping", "Cooking"]
+//    var colors = [1, 2, 3, 4]
+//    @State var selectedIndex = 0
+//    @State var isDone: Bool = false
+//    //    @State var date: Date = Date()
+//    @State private var isDated = false
+//    @State var time: Date = Date()
+//    @State private var isTimed = false
+//    @State var assigned: String = ""
+//    var assignedPeople = ["Me", "Harry", "Herminone", "Ron"]
+//    @State var details: String = ""
+//    @State private var selectedColor: Color = .gray
+//    
+//    @State var date: Date
+//    //    let dateRange: ClosedRange<Date> = {
+////        let calendar = Calendar.current
+////        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
+////        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
+////        return calendar.date(from:startComponents)!
+////        ...
+////        calendar.date(from:endComponents)!
+////    }()
+//    
+//    var body: some View {
+//        Form {
+//            Section(header: Text("Name")) {
+//                TextField("Title", text: $name)
+//            }
+//            //                Section(header: Text("Type")) {
+//            //                    CustomSegmentedView($selectedIndex, selections: selections)
+//            //                    Text("\(selections[selectedIndex])")
+//            //                }
+////            Section(header: Text("Type")) {
+////                Picker("Types", selection: $type) {
+////                    ForEach(selections, id: \.self) {
+////                        Text($0)
+////                    }
+////                }
+////                .pickerStyle(.segmented)
+////                //                    .colorMultiply(.red)
+////            }
+//            Section(header: Text("Priority")) {
+//                VStack {
+//                    ColorPickerView(selectedColor: $selectedColor)
+//                        .font(.system(size: 32))
+//                }.frame(maxWidth: .infinity, maxHeight: 200)
+////                        .background(Color(red: 1.0, green: 1.0, blue: 1.0))
+//                    .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
+//                
+//            }
+//            Section(header: Text("Status")) {
+//                Toggle(isOn: $isDone) {
+//                    Text("Finished")
+//                }
+//            }
+//            Section(header: Text("Reminder")) {
+//                Toggle(isOn: $isDated) {
+//                    Text("\(item.date!.formatted(.dateTime.day().month(.wide).year()))")
+//                    //                        Text(date, style: .time)
+//                    Text(item.date!, style: .time)
+//                }
+//                if isDated == true {
+//                    DatePicker("Choose the date", selection: $date, displayedComponents: [.date, .hourAndMinute])
+//                        .onChange(of: date) {
+//                            print($0)
+//                        }
+//                        .datePickerStyle(.graphical)
+//                }
+//                
+//                
+//                //                    Toggle(isOn: $isTimed) {
+//                //                        Text("Time\n\(time.formatted())")
+//                //                    }
+//                //                    if isTimed == true {
+//                //                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
+//                //                            .onChange(of: time) {
+//                //                                print($0)
+//                //                            }
+//                //                            .datePickerStyle(.graphical)
+//                //                    }
+//            }
+////            Section(header: Text("Who's in charge?")) {
+////                Picker("People", selection: $assigned) {
+////                    ForEach(assignedPeople, id: \.self) {
+////                        Text($0)
+////                    }
+////                }
+////            }
+////            .pickerStyle(.automatic)
+//            Section(header: Text("Details")) {
+//                TextEditor(text: $details)
+//            }
+//            
+//        }
+////        .offset(y: -1)
+//        .toolbar {
+//            ToolbarItem {
+//                ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("// \(details)")) {
+//                    Image(systemName: "square.and.arrow.up")
+//                }
+//            }
+//            ToolbarItem(placement: .navigationBarTrailing) {
+//                Button {
+//                    editItem()
+//                    dismiss()
+//                    scheduleNotification()
+//                } label: {
+//                    Text("Edit")
+//                        .fontWeight(.bold)
+//                }
+//                .disabled(self.name.isEmpty)
+//            }
+//        }
+//        
+//        //        }
+//    }
+//  
+//    private func editItem() {
+//        withAnimation {
+//            item.name = name
+//            //            item.type = selections.joined()
+//            item.type = type
+//            item.isDone = isDone
+//            item.date = date
+//            item.time = time
+//            item.assigned = assigned
+//            item.details = details
+//            //            let newItem = Item(context: viewContext)
+//            //            newItem.timestamp = Date()
+//            //            newItem.name = name
+//            //            newItem.type = type
+//            //            newItem.isDone = isDone
+//            //            newItem.date = date
+//            //            newItem.time = time
+//            //            newItem.assigned = assigned
+//            //            newItem.details = details
+//            //
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+//    }
+//    
+//    private func deleteItems(offsets: IndexSet) {
+//        withAnimation {
+//            offsets.map { items[$0] }.forEach(viewContext.delete)
+//            
+//            do {
+//                try viewContext.save()
+//            } catch {
+//                // Replace this implementation with code to handle the error appropriately.
+//                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+//                let nsError = error as NSError
+//                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+//            }
+//        }
+//    }
+//    
+//    public func scheduleNotification() {
+//        let notificationId = UUID()
+//        let content = UNMutableNotificationContent()
+//        content.body = "Reminder: \(name)"
+//        content.sound = UNNotificationSound.default
+//        content.userInfo = [
+//            "notificationId": "\(notificationId)" // additional info to parse if need
+//        ]
+//        
+//        let trigger = UNCalendarNotificationTrigger(
+//            dateMatching: NotificationHelper.getTriggerDate(triggerDate: date)!,
+//            repeats: false
+//        )
+//        
+//        notificationManager.scheduleNotification(
+//            id: "\(notificationId)",
+//            content: content,
+//            trigger: trigger)
+//    }
+//    
+//}
+
+
+import SwiftUI
+import CoreData
+import UserNotifications
+
 struct TaskDetailView: View {
     var item: Item
     
@@ -27,185 +231,138 @@ struct TaskDetailView: View {
     var colors = [1, 2, 3, 4]
     @State var selectedIndex = 0
     @State var isDone: Bool = false
-    //    @State var date: Date = Date()
     @State private var isDated = false
     @State var time: Date = Date()
     @State private var isTimed = false
     @State var assigned: String = ""
-    var assignedPeople = ["Me", "Harry", "Herminone", "Ron"]
+    var assignedPeople = ["Me", "Harry", "Hermione", "Ron"]
     @State var details: String = ""
     @State private var selectedColor: Color = .gray
     
     @State var date: Date
-    //    let dateRange: ClosedRange<Date> = {
-//        let calendar = Calendar.current
-//        let startComponents = DateComponents(year: 2023, month: 1, day: 1)
-//        let endComponents = DateComponents(year: 2200, month: 12, day: 31, hour: 23, minute: 59, second: 59)
-//        return calendar.date(from:startComponents)!
-//        ...
-//        calendar.date(from:endComponents)!
-//    }()
+    
+    init(item: Item) {
+        self.item = item
+        self._name = State(initialValue: item.name ?? "")
+        self._type = State(initialValue: item.type ?? "")
+        self._selectedIndex = State(initialValue: item.type == "Chores" ? 0 : item.type == "Cleaning" ? 1 : item.type == "Shopping" ? 2 : 3)
+        self._isDone = State(initialValue: item.isDone)
+        self._time = State(initialValue: item.time ?? Date())
+        self._date = State(initialValue: item.timestamp ?? Date())
+        self._assigned = State(initialValue: item.assigned ?? "")
+        self._details = State(initialValue: item.details ?? "")
+    }
     
     var body: some View {
         Form {
             Section(header: Text("Name")) {
                 TextField("Title", text: $name)
             }
-            //                Section(header: Text("Type")) {
-            //                    CustomSegmentedView($selectedIndex, selections: selections)
-            //                    Text("\(selections[selectedIndex])")
-            //                }
-//            Section(header: Text("Type")) {
-//                Picker("Types", selection: $type) {
-//                    ForEach(selections, id: \.self) {
-//                        Text($0)
-//                    }
-//                }
-//                .pickerStyle(.segmented)
-//                //                    .colorMultiply(.red)
-//            }
-            Section(header: Text("Priority")) {
-                VStack {
-                    ColorPickerView(selectedColor: $selectedColor)
-                        .font(.system(size: 32))
-                }.frame(maxWidth: .infinity, maxHeight: 200)
-//                        .background(Color(red: 1.0, green: 1.0, blue: 1.0))
-                    .clipShape(RoundedRectangle(cornerRadius: 10.0, style: .continuous))
-                
+            Section(header: Text("Type")) {
+                CustomSegmentedView($selectedIndex, selections: selections)
             }
-            Section(header: Text("Status")) {
-                Toggle(isOn: $isDone) {
-                    Text("Finished")
+            Section(header: Text("Date and Time")) {
+                DatePicker("Select Date", selection: $date, displayedComponents: .date)
+                DatePicker("Select Time", selection: $time, displayedComponents: .hourAndMinute)
+            }
+            Section(header: Text("Assigned to")) {
+                Picker("Assign to", selection: $assigned) {
+                    ForEach(assignedPeople, id: \.self) {
+                        Text($0)
+                    }
                 }
             }
-            Section(header: Text("Reminder")) {
-                Toggle(isOn: $isDated) {
-                    Text("\(item.date!.formatted(.dateTime.day().month(.wide).year()))")
-                    //                        Text(date, style: .time)
-                    Text(item.date!, style: .time)
-                }
-                if isDated == true {
-                    DatePicker("Choose the date", selection: $date, displayedComponents: [.date, .hourAndMinute])
-                        .onChange(of: date) {
-                            print($0)
-                        }
-                        .datePickerStyle(.graphical)
-                }
-                
-                
-                //                    Toggle(isOn: $isTimed) {
-                //                        Text("Time\n\(time.formatted())")
-                //                    }
-                //                    if isTimed == true {
-                //                        DatePicker("Choose the time", selection: $time, displayedComponents: .hourAndMinute)
-                //                            .onChange(of: time) {
-                //                                print($0)
-                //                            }
-                //                            .datePickerStyle(.graphical)
-                //                    }
-            }
-//            Section(header: Text("Who's in charge?")) {
-//                Picker("People", selection: $assigned) {
-//                    ForEach(assignedPeople, id: \.self) {
-//                        Text($0)
-//                    }
-//                }
-//            }
-//            .pickerStyle(.automatic)
             Section(header: Text("Details")) {
                 TextEditor(text: $details)
             }
-            
-        }
-//        .offset(y: -1)
-        .toolbar {
-            ToolbarItem {
-                ShareLink(item: "Task: \(name)", subject: Text("\(date)\(time)"), message: Text("// \(details)")) {
-                    Image(systemName: "square.and.arrow.up")
+            Section {
+                Toggle(isOn: $isDone) {
+                    Text("Done")
                 }
             }
-            ToolbarItem(placement: .navigationBarTrailing) {
-                Button {
-                    editItem()
+            Section {
+                Button("Edit") {
+                    saveTask()
                     dismiss()
-                    scheduleNotification()
-                } label: {
-                    Text("Edit")
-                        .fontWeight(.bold)
                 }
-                .disabled(self.name.isEmpty)
             }
         }
-        
-        //        }
+        .navigationTitle("Task Details")
+        .navigationBarItems(trailing: Button("Cancel") {
+            dismiss()
+        })
     }
-    private func editItem() {
-        withAnimation {
-            item.name = name
-            //            item.type = selections.joined()
-            item.type = type
-            item.isDone = isDone
-            item.date = date
-            item.time = time
-            item.assigned = assigned
-            item.details = details
-            //            let newItem = Item(context: viewContext)
-            //            newItem.timestamp = Date()
-            //            newItem.name = name
-            //            newItem.type = type
-            //            newItem.isDone = isDone
-            //            newItem.date = date
-            //            newItem.time = time
-            //            newItem.assigned = assigned
-            //            newItem.details = details
-            //
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
+    
+    private func saveTask() {
+        item.name = name
+        item.type = selections[selectedIndex]
+        item.timestamp = mergeDateAndTime(date: date, time: time)
+        item.time = time
+        item.isDone = isDone
+        item.assigned = assigned
+        item.details = details
+        
+        do {
+            try viewContext.save()
+        } catch {
+            // Handle the error appropriately in a real app
+            print("Failed to save task: \(error.localizedDescription)")
         }
     }
     
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
-    }
-    
-    public func scheduleNotification() {
-        let notificationId = UUID()
-        let content = UNMutableNotificationContent()
-        content.body = "Reminder: \(name)"
-        content.sound = UNNotificationSound.default
-        content.userInfo = [
-            "notificationId": "\(notificationId)" // additional info to parse if need
-        ]
+    private func mergeDateAndTime(date: Date, time: Date) -> Date {
+        let calendar = Calendar.current
+        let dateComponents = calendar.dateComponents([.year, .month, .day], from: date)
+        let timeComponents = calendar.dateComponents([.hour, .minute, .second], from: time)
         
-        let trigger = UNCalendarNotificationTrigger(
-            dateMatching: NotificationHelper.getTriggerDate(triggerDate: date)!,
-            repeats: false
-        )
+        var mergedComponents = DateComponents()
+        mergedComponents.year = dateComponents.year
+        mergedComponents.month = dateComponents.month
+        mergedComponents.day = dateComponents.day
+        mergedComponents.hour = timeComponents.hour
+        mergedComponents.minute = timeComponents.minute
+        mergedComponents.second = timeComponents.second
         
-        notificationManager.scheduleNotification(
-            id: "\(notificationId)",
-            content: content,
-            trigger: trigger)
+        return calendar.date(from: mergedComponents) ?? Date()
     }
-    
+  
+      private func deleteItems(offsets: IndexSet) {
+          withAnimation {
+              offsets.map { items[$0] }.forEach(viewContext.delete)
+  
+              do {
+                  try viewContext.save()
+              } catch {
+                  // Replace this implementation with code to handle the error appropriately.
+                  // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
+                  let nsError = error as NSError
+                  fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+              }
+          }
+      }
+  
+      public func scheduleNotification() {
+          let notificationId = UUID()
+          let content = UNMutableNotificationContent()
+          content.body = "Reminder: \(name)"
+          content.sound = UNNotificationSound.default
+          content.userInfo = [
+              "notificationId": "\(notificationId)" // additional info to parse if need
+          ]
+  
+          let trigger = UNCalendarNotificationTrigger(
+              dateMatching: NotificationHelper.getTriggerDate(triggerDate: date)!,
+              repeats: false
+          )
+  
+          notificationManager.scheduleNotification(
+              id: "\(notificationId)",
+              content: content,
+              trigger: trigger)
+      }
+  
 }
+
 
 struct TaskDetailView_Previews: PreviewProvider {
     static let persistence = PersistenceController.preview
@@ -223,7 +380,7 @@ struct TaskDetailView_Previews: PreviewProvider {
     }()
     
     static var previews: some View {
-        TaskDetailView(item: item, date: Date())
+        TaskDetailView(item: item)
             .environment(\.managedObjectContext, persistence.container.viewContext)
         //            .environmentObject(Favorites())
     }

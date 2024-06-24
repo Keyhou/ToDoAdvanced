@@ -2,11 +2,10 @@
 //  ToDoAdvancedTests.swift
 //  ToDoAdvancedTests
 //
-//  Created by Keyhan Mortezaeifar on 04/01/2023.
+//  Created by Keyhan Mortezaeifar on 16/07/2023.
 //
 
 import XCTest
-@testable import ToDoAdvanced
 
 final class ToDoAdvancedTests: XCTestCase {
 
@@ -28,7 +27,7 @@ final class ToDoAdvancedTests: XCTestCase {
 
     func testPerformanceExample() throws {
         // This is an example of a performance test case.
-        self.measure {
+        measure {
             // Put the code you want to measure the time of here.
         }
     }
