@@ -325,121 +325,96 @@ import CoreData
 import UserNotifications
 
 struct ContentView: View {
-    @Environment(\.managedObjectContext) private var viewContext
-    @EnvironmentObject var taskViewModel: TaskViewModel
-    @State private var selectedFilter: TaskFilter = .ToDo
-    
-    @FetchRequest(
-        sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
-        animation: .default)
-    private var items: FetchedResults<Item>
-
-    let notificationManager = NotificationManager()
-
-    @State private var showingAddTask = false
-    @State private var showingTask = false
-    
-    @State private var searchText = ""
-    @State private var selectedIndex = 0
-    @State var selected = 2
-    
-    let columns = [
-        GridItem(.adaptive(minimum: 100))
-    ]
-    
-    var filteredItems: [Item] {
-        switch selectedFilter {
-        case .ToDo:
-            return items.filter { !$0.isDone }
-        case .All:
-            return Array(items)
-        case .Done:
-            return items.filter { $0.isDone }
-        }
+  @Environment(\.managedObjectContext) private var viewContext
+  @EnvironmentObject var taskViewModel: TaskViewModel
+  @State private var selectedFilter: TaskFilter = .ToDo
+  
+  @FetchRequest(
+    sortDescriptors: [NSSortDescriptor(keyPath: \Item.timestamp, ascending: true)],
+    animation: .default)
+  private var items: FetchedResults<Item>
+  
+  let notificationManager = NotificationManager()
+  
+  @State private var showingAddTask = false
+  @State private var showingTask = false
+  
+  @State private var searchText = ""
+  @State private var selectedIndex = 0
+  @State var selected = 2
+  
+  let columns = [
+    GridItem(.adaptive(minimum: 100))
+  ]
+  
+  var filteredItems: [Item] {
+    switch selectedFilter {
+    case .ToDo:
+      return items.filter { !$0.isDone }
+    case .All:
+      return Array(items)
+    case .Done:
+      return items.filter { $0.isDone }
     }
-    
-    var body: some View {
-        NavigationView {
-            VStack {
-                Picker("Filter", selection: $selectedFilter) {
-                    ForEach(TaskFilter.allCases, id: \.self) { filter in
-                        Text(filter.rawValue).tag(filter)
-                    }
-                }
-                .pickerStyle(SegmentedPickerStyle())
-                .padding()
-                
-                List {
-                    ForEach(filteredItems) { item in
-                        NavigationLink {
-                            TaskDetailView(item: item)
-                        } label: {
-                            VStack(alignment: .leading) {
-                                Text(item.name ?? "No Name")
-                                    .font(.headline)
-                                Text(item.details ?? "No Details")
-                                    .font(.subheadline)
-                                if let timestamp = item.timestamp {
-                                    Text("Date: \(timestamp, formatter: itemFormatter)")
-                                }
-                                if let time = item.time {
-                                    Text("Time: \(time, formatter: timeFormatter)")
-                                }
-                            }
-                        }
-                    }
-                    .onDelete(perform: deleteItems)
-                }
-                .navigationTitle("Task List")
-                .navigationBarTitleDisplayMode(.inline)
-                .toolbar {
-                    ToolbarItem(placement: .navigationBarTrailing) {
-                        Button(action: { showingAddTask.toggle() }) {
-                            Label("Add Item", systemImage: "plus")
-                        }
-                    }
-                }
-                .sheet(isPresented: $showingAddTask) {
-                    AddTaskView().environment(\.managedObjectContext, viewContext)
-                }
-            }
+  }
+  
+  var body: some View {
+    NavigationView {
+      VStack {
+        Picker("Filter", selection: $selectedFilter) {
+          ForEach(TaskFilter.allCases, id: \.self) { filter in
+            Text(filter.rawValue).tag(filter)
+          }
         }
+        .pickerStyle(SegmentedPickerStyle())
+        .padding()
+        
+        TaskListView(
+          selectedFilter: $selectedFilter,
+          items: Array(items),
+          filteredItems: filteredItems,
+          showingAddTask: $showingAddTask,
+          viewContext: viewContext
+        )
+      }
+      .navigationTitle("Task List")
+      .navigationBarTitleDisplayMode(.inline)
     }
-    
-    private func deleteItems(offsets: IndexSet) {
-        withAnimation {
-            offsets.map { items[$0] }.forEach(viewContext.delete)
-            
-            do {
-                try viewContext.save()
-            } catch {
-                // Replace this implementation with code to handle the error appropriately.
-                // fatalError() causes the application to generate a crash log and terminate. You should not use this function in a shipping application, although it may be useful during development.
-                let nsError = error as NSError
-                fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
-            }
-        }
+  }
+  
+  private func deleteItems(offsets: IndexSet) {
+    withAnimation {
+      offsets.map { items[$0] }.forEach(viewContext.delete)
+      
+      do {
+        try viewContext.save()
+      } catch {
+        let nsError = error as NSError
+        fatalError("Unresolved error \(nsError), \(nsError.userInfo)")
+      }
     }
+  }
 }
 
 private let itemFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.dateStyle = .short
-    return formatter
+  let formatter = DateFormatter()
+  formatter.dateStyle = .short
+  return formatter
 }()
 
 private let timeFormatter: DateFormatter = {
-    let formatter = DateFormatter()
-    formatter.timeStyle = .short
-    return formatter
+  let formatter = DateFormatter()
+  formatter.timeStyle = .short
+  return formatter
 }()
 
-struct ContentView_Previews: PreviewProvider {
-    static var previews: some View {
-        ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
-    }
-}
 
+
+struct ContentView_Previews: PreviewProvider {
+  static var previews: some View {
+    ContentView().environment(\.managedObjectContext, PersistenceController.preview.container.viewContext)
+  }
+}
 
 
 
